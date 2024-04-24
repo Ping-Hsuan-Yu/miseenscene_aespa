@@ -16,12 +16,12 @@ export default function Header() {
       <div className="flex justify-center max-w-screen-xl text-nowrap">
         <img className="object-contain max-w-[400px] max-h-[124px]" src={Logo} />
         <Nav className="flex items-center justify-center text-white text-xl tracking-widest font-bold ps-6">
-          <Link to="/" className="cursor-pointer">活動簡介</Link>
-          <Link to="/" className="cursor-pointer">品牌介紹</Link>
-          <Link to="/" className="cursor-pointer">比賽辦法</Link>
-          <Link to="/" className="cursor-pointer">參賽隊伍</Link>
-          <Link to="/" className="cursor-pointer">比賽辦法</Link>
-          <Link to="/sign-up" className="cursor-pointer">我要報名</Link>
+          <Link to="/miseenscene_aespa" className="cursor-pointer">活動簡介</Link>
+          <Link to="/miseenscene_aespa" className="cursor-pointer">品牌介紹</Link>
+          <Link to="/miseenscene_aespa" className="cursor-pointer">比賽辦法</Link>
+          <Link to="/miseenscene_aespa" className="cursor-pointer">參賽隊伍</Link>
+          <Link to="/miseenscene_aespa" className="cursor-pointer">比賽辦法</Link>
+          <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">我要報名</Link>
           <div className="cursor-pointer ps-6">
             <a>
               <img width="45px" height="45px" src={IgLogo} />

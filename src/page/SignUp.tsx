@@ -67,7 +67,18 @@ export default function SignUp() {
               </Label>
 
               <LabelCaption>*為確保參加者之權益，每人於各組別限報名及領取獎項1次</LabelCaption>
-              <input type="radio" />
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="radio" name="group" id="person" />
+                    <label htmlFor="person">個人組</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="group" id="team" />
+                    <label htmlFor="team">團體組</label>
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div>
               <Label htmlFor="sex" required>
@@ -90,7 +101,9 @@ export default function SignUp() {
               <Label htmlFor="birthday" required>
                 4. 您的生日
               </Label>
-              <input type="date" />
+              <InputField>
+                <input type="date" />
+              </InputField>
             </div>
             <div>
               <Label htmlFor="phone" required>
@@ -166,7 +179,9 @@ export default function SignUp() {
               <LabelCaption>
                 *顯示於參賽隊伍頁面，內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
-              <input type="file" />
+              <InputField>
+                <input type="file" />
+              </InputField>
             </div>
             <div>
               <Label htmlFor="people" required>
@@ -188,27 +203,148 @@ export default function SignUp() {
               <Label htmlFor="brand" required>
                 14. 請問您認識以下哪些髮品品牌？
               </Label>
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="checkbox" name="" id="Mise-en-scène 魅尚萱" />
+                    <label htmlFor="Mise-en-scène 魅尚萱">Mise-en-scène 魅尚萱</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="Kérastase" />
+                    <label htmlFor="Kérastase">Kérastase</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="Moroccanoil" />
+                    <label htmlFor="Moroccanoil">Moroccanoil</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="Elastine伊絲婷" />
+                    <label htmlFor="Elastine伊絲婷">Elastine伊絲婷</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="L'Oréal Paris巴黎萊雅" />
+                    <label htmlFor="L'Oréal Paris巴黎萊雅">L'Oréal Paris巴黎萊雅</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="AQUAIR阿葵亞" />
+                    <label htmlFor="AQUAIR阿葵亞">AQUAIR阿葵亞</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="樂絲朵-L" />
+                    <label htmlFor="樂絲朵-L">樂絲朵-L</label>
+                  </div>
+                  <div className="flex">
+                    <input type="checkbox" name="" id="其他：" />
+                    <label className="text-nowrap" htmlFor="其他：">
+                      其他：
+                    </label>
+                    <input
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div>
               <Label htmlFor="where" required>
                 15. 請問您是從哪裡得知這個活動的？
               </Label>
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="checkbox" name="" id="官方粉絲團" />
+                    <label htmlFor="官方粉絲團">官方粉絲團</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="廣告" />
+                    <label htmlFor="廣告">廣告</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="朋友告知" />
+                    <label htmlFor="朋友告知">朋友告知</label>
+                  </div>
+                  <div className="flex">
+                    <input type="checkbox" name="" id="where-other" />
+                    <label className="text-nowrap" htmlFor="where-other">
+                      其他：
+                    </label>
+                    <input
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div>
               <Label htmlFor="why" required>
                 16. 請問您為什麼想參加這個活動？
               </Label>
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="checkbox" name="" id="喜歡跳舞" />
+                    <label htmlFor="喜歡跳舞">喜歡跳舞</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="之前就有關注魅尚萱" />
+                    <label htmlFor="之前就有關注魅尚萱">之前就有關注魅尚萱</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" name="" id="本身是aespa的粉絲" />
+                    <label htmlFor="本身是aespa的粉絲">本身是aespa的粉絲</label>
+                  </div>
+                  <div className="flex">
+                    <input type="checkbox" name="" id="why-other" />
+                    <label className="text-nowrap" htmlFor="why-other">
+                      其他：
+                    </label>
+                    <input
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div>
               <Label htmlFor="hair" required>
                 17. 您平常有護髮習慣嗎？
               </Label>
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="radio" name="hair" id="有" />
+                    <label htmlFor="有">有</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="hair" id="偶爾" />
+                    <label htmlFor="偶爾">偶爾</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="hair" id="不護髮" />
+                    <label htmlFor="不護髮">不護髮</label>
+                  </div>
+                  <div className="flex">
+                    <input type="radio" name="hair" id="hair-other" />
+                    <label className="text-nowrap" htmlFor="hair-other">
+                      其他：
+                    </label>
+                    <input
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div>
               <Label htmlFor="care" required>
                 18. 承上題，若有您平常使用什麼護髮產品？
               </Label>
               <LabelCaption>*若不護髮則填無</LabelCaption>
+              <InputText />
             </div>
             <div className="ms-[-20px]">
               <Label htmlFor="" required>
@@ -259,6 +395,14 @@ export default function SignUp() {
                   主辦單位魅尚萱保有最終修改、變更、活動解釋及取消本活動之權利，若有相關異動將會公告於品牌官方Facebook/Instagram，恕不另行通知。
                 </span>
               </ol>
+              <InputField>
+                <div className="text-[23px] text-orange-600 font-bold">
+                  <div>
+                    <input type="radio" name="agree" id="agree" />
+                    <label htmlFor="agree">我同意</label>
+                  </div>
+                </div>
+              </InputField>
             </div>
             <div className="flex justify-between items-center mb-14">
               <Submit

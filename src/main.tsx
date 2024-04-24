@@ -2,15 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './output.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/miseenscene_aespa/",
     element: <App />,
   },
   {
-    path: "/sign-up",
+    path: "/miseenscene_aespa/sign-up",
     element: <App signUp/>,
   },
 ]);
