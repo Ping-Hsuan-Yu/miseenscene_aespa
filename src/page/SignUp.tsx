@@ -1,12 +1,15 @@
-import OrangeGridBg from "../components/OrangeGridBg";
-import Paper from "../assets/paper.png";
-import ButtonBg from "../assets/submit.png";
-import FooterBg from "../assets/signup_footer.png";
+import { useState } from "react";
+import ReactDatePicker from "react-datepicker";
 import styled from "styled-components";
+import Paper from "../assets/paper.png";
+import FooterBg from "../assets/signup_footer.png";
+import ButtonBg from "../assets/submit.png";
+import InputField from "../components/InputField";
+import InputText from "../components/InputText";
 import Label from "../components/Label";
 import LabelCaption from "../components/LabelCaption";
-import InputText from "../components/InputText";
-import InputField from "../components/InputField";
+import OrangeGridBg from "../components/OrangeGridBg";
+import { zhTW } from "date-fns/locale/zh-TW";
 
 const PaperBg = styled.div`
   background-image: url(${Paper});
@@ -47,7 +50,78 @@ const Footer = styled.div`
   margin-top: -242px;
 `;
 
+const Radio = styled.input`
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1em;
+  height: 1em;
+  border: 0.15rem solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  margin-top: 4px;
+  &::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+`;
+
+const CheckBox = styled.input`
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1em;
+  height: 1em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  margin-top: 4px;
+  &::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+`;
+
+const url =
+  "https://docs.google.com/forms/u/0/d/e/1FAIpQLScLW9Z5qgLyQaTWPpy9bdygbY1JNM2sNLtVAi4BKmRtodDvKA/formResponse";
+
 export default function SignUp() {
+  const [birthday, setBirthday] = useState<Date | null>(new Date());
+
+  const req = {
+    "entry.388213980": "6. 您的電子郵件",
+  };
+
+  // const fetchData = () => {
+  //   fetch(url, { method: "POST", body: JSON.stringify(req), mode: "no-cors" })
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.error(err));
+  // };
   return (
     <>
       <OrangeGridBg className="w-full flex justify-center px-[100px]">
@@ -69,12 +143,12 @@ export default function SignUp() {
               <LabelCaption>*為確保參加者之權益，每人於各組別限報名及領取獎項1次</LabelCaption>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="radio" name="group" id="person" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="group" id="person" />
                     <label htmlFor="person">個人組</label>
                   </div>
-                  <div>
-                    <input type="radio" name="group" id="team" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="group" id="team" />
                     <label htmlFor="team">團體組</label>
                   </div>
                 </div>
@@ -86,13 +160,25 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="radio" name="sex" id="female" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="sex" id="female" />
                     <label htmlFor="female">女性</label>
                   </div>
-                  <div>
-                    <input type="radio" name="sex" id="male" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="sex" id="male" />
                     <label htmlFor="male">男性</label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <Radio type="radio" name="sex" id="other-sex" />
+                    </div>
+                    <label className="text-nowrap" htmlFor="other-sex">
+                      其他：
+                    </label>
+                    <input
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      type="text"
+                    />
                   </div>
                 </div>
               </InputField>
@@ -102,7 +188,15 @@ export default function SignUp() {
                 4. 您的生日
               </Label>
               <InputField>
-                <input type="date" />
+                <ReactDatePicker
+                  dateFormat="yyyy/MM/dd"
+                  locale={zhTW}
+                  className="bg-orange-100 border-orange-600 border-b text-[23px] text-orange-600 font-bold outline-orange-600 py-1 px-2"
+                  selected={birthday}
+                  onChange={(date) => {
+                    setBirthday(date);
+                  }}
+                />
               </InputField>
             </div>
             <div>
@@ -205,41 +299,43 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="checkbox" name="" id="Mise-en-scène 魅尚萱" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="Mise-en-scène 魅尚萱" />
                     <label htmlFor="Mise-en-scène 魅尚萱">Mise-en-scène 魅尚萱</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="Kérastase" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="Kérastase" />
                     <label htmlFor="Kérastase">Kérastase</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="Moroccanoil" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="Moroccanoil" />
                     <label htmlFor="Moroccanoil">Moroccanoil</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="Elastine伊絲婷" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="Elastine伊絲婷" />
                     <label htmlFor="Elastine伊絲婷">Elastine伊絲婷</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="L'Oréal Paris巴黎萊雅" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="L'Oréal Paris巴黎萊雅" />
                     <label htmlFor="L'Oréal Paris巴黎萊雅">L'Oréal Paris巴黎萊雅</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="AQUAIR阿葵亞" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="AQUAIR阿葵亞" />
                     <label htmlFor="AQUAIR阿葵亞">AQUAIR阿葵亞</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="樂絲朵-L" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="樂絲朵-L" />
                     <label htmlFor="樂絲朵-L">樂絲朵-L</label>
                   </div>
-                  <div className="flex">
-                    <input type="checkbox" name="" id="其他：" />
-                    <label className="text-nowrap" htmlFor="其他：">
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <CheckBox type="checkbox" name="" id="other-brand" />
+                    </div>
+                    <label className="text-nowrap" htmlFor="other-brand">
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                     />
                   </div>
@@ -252,25 +348,27 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="checkbox" name="" id="官方粉絲團" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="官方粉絲團" />
                     <label htmlFor="官方粉絲團">官方粉絲團</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="廣告" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="廣告" />
                     <label htmlFor="廣告">廣告</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="朋友告知" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="朋友告知" />
                     <label htmlFor="朋友告知">朋友告知</label>
                   </div>
-                  <div className="flex">
-                    <input type="checkbox" name="" id="where-other" />
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <CheckBox type="checkbox" name="" id="where-other" />
+                    </div>
                     <label className="text-nowrap" htmlFor="where-other">
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                     />
                   </div>
@@ -283,25 +381,27 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="checkbox" name="" id="喜歡跳舞" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="喜歡跳舞" />
                     <label htmlFor="喜歡跳舞">喜歡跳舞</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="之前就有關注魅尚萱" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="之前就有關注魅尚萱" />
                     <label htmlFor="之前就有關注魅尚萱">之前就有關注魅尚萱</label>
                   </div>
-                  <div>
-                    <input type="checkbox" name="" id="本身是aespa的粉絲" />
+                  <div className="flex items-center gap-2">
+                    <CheckBox type="checkbox" name="" id="本身是aespa的粉絲" />
                     <label htmlFor="本身是aespa的粉絲">本身是aespa的粉絲</label>
                   </div>
-                  <div className="flex">
-                    <input type="checkbox" name="" id="why-other" />
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <CheckBox type="checkbox" name="" id="why-other" />
+                    </div>
                     <label className="text-nowrap" htmlFor="why-other">
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                     />
                   </div>
@@ -314,25 +414,27 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="radio" name="hair" id="有" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="hair" id="有" />
                     <label htmlFor="有">有</label>
                   </div>
-                  <div>
-                    <input type="radio" name="hair" id="偶爾" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="hair" id="偶爾" />
                     <label htmlFor="偶爾">偶爾</label>
                   </div>
-                  <div>
-                    <input type="radio" name="hair" id="不護髮" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="hair" id="不護髮" />
                     <label htmlFor="不護髮">不護髮</label>
                   </div>
-                  <div className="flex">
-                    <input type="radio" name="hair" id="hair-other" />
+                  <div className="flex items-center gap-2">
+                    <div>
+                      <Radio type="radio" name="hair" id="hair-other" />
+                    </div>
                     <label className="text-nowrap" htmlFor="hair-other">
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b pb-2"
+                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                     />
                   </div>
@@ -397,8 +499,8 @@ export default function SignUp() {
               </ol>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div>
-                    <input type="radio" name="agree" id="agree" />
+                  <div className="flex items-center gap-2">
+                    <Radio type="radio" name="agree" id="agree" />
                     <label htmlFor="agree">我同意</label>
                   </div>
                 </div>
@@ -408,6 +510,7 @@ export default function SignUp() {
               <Submit
                 type="button"
                 className="w-[232px] h-[64px] text-white text-[36px] font-bold tracking-widest"
+                // onClick={fetchData}
               >
                 提交
               </Submit>
