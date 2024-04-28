@@ -1,42 +1,48 @@
 import Sec03Img1 from "../assets/img02-1.png";
+import Sec03Img1m from "../assets/img02-1-m.png";
 import Sec03Img2 from "../assets/img02-2.png";
-import Sec03Img3 from "../assets/img02-3.jpg";
+import Sec03Img2m from "../assets/img02-2-m.png";
 
-export default function Section3() {
+export default function Section3(props: {
+  ref1: React.MutableRefObject<HTMLElement | null>;
+  ref2: React.MutableRefObject<HTMLElement | null>;
+}) {
   return (
     <>
-      <section className="flex justify-center">
-        <div className="flex justify-end w-[1280px] h-[1369px] relative">
-          <img
-            className="object-contain max-w-[1194px] max-h-[859px] absolute top-4 right-[-6px]"
-            src={Sec03Img1}
-            alt="快用#魅尚萱小橘瓶 完美終結稻草髮 搭配aespa舞蹈開啟與偶像的〝頂上〞對決
+      <section className="flex justify-center w-full my-4 lg:my-8 px-4 lg:px-8 ref" ref={props.ref1}>
+        <img
+          className="hidden md:block object-contain w-full max-w-[1194px] z-10"
+          src={Sec03Img1}
+          alt="快用#魅尚萱小橘瓶 完美終結稻草髮 搭配aespa舞蹈開啟與偶像的〝頂上〞對決
           讓妳連髮絲都柔順到像在跳舞～ 和aespa一起成為“頭”號完美女生吧"
-          />
-        </div>
+        />
+        <img
+          className="md:hidden object-contain w-full z-10"
+          src={Sec03Img1m}
+          alt="快用#魅尚萱小橘瓶 完美終結稻草髮 搭配aespa舞蹈開啟與偶像的〝頂上〞對決
+          讓妳連髮絲都柔順到像在跳舞～ 和aespa一起成為“頭”號完美女生吧"
+        />
       </section>
-      <div className="flex justify-center relative">
+      <section className="flex justify-center w-full my-4 lg:my-8 ref" ref={props.ref2}>
         <img
-          className="object-contain max-w-[1194px] max-h-[640px] absolute top-[-480px] z-10"
+          className="hidden md:block object-contain w-full max-w-[1194px] z-10"
           src={Sec03Img2}
-          alt="韓國第一造型妝髮品牌 魅尚萱"
+          alt="完美造型是改變自信的起點，更讓妳從容面對生活。
+          對 魅尚萱 而言，造型不只單純打理外表，
+          而是從頭髮的色彩、柔順、光澤都充滿日常精緻儀式感，形成屬於妳獨特的lifestyle。
+          完美護髮精油連續十年銷售第一，7種植萃精油調配，給妳24H全方位完美修護！
+          現在起讓韓國第一造型護理領導品牌 魅尚萱 ，為妳打點髮絲的每個小細節吧。"
         />
-      </div>
-      <div className="flex justify-center relative">
-        <div className="absolute top-32">
-          <p className="text-center text-brown-800 text-[28px] leading-[46px] font-bold tracking-wide">
-            Mise-en-Scene 來自法文，意指「配置畫面中的一切」。<br/>
-            特別是在現代話劇與電影中<br/>
-            代表著以美學角度細心規劃從人物到裝扮、燈光、背景與攝影機的移動。<br/>
-            專業美髮綜合品牌魅尚萱的哲學即在於提高您的造型與形象完成度。
-          </p>
-        </div>
         <img
-          className="object-contain max-w-[1280px] max-h-[2768px]"
-          src={Sec03Img3}
-          alt="韓國第一造型妝髮品牌 魅尚萱"
+          className="md:hidden object-contain w-full max-w-[1194px] z-10"
+          src={Sec03Img2m}
+          alt="完美造型是改變自信的起點，更讓妳從容面對生活。
+          對 魅尚萱 而言，造型不只單純打理外表，
+          而是從頭髮的色彩、柔順、光澤都充滿日常精緻儀式感，形成屬於妳獨特的lifestyle。
+          完美護髮精油連續十年銷售第一，7種植萃精油調配，給妳24H全方位完美修護！
+          現在起讓韓國第一造型護理領導品牌 魅尚萱 ，為妳打點髮絲的每個小細節吧。"
         />
-      </div>
+      </section>
     </>
   );
 }

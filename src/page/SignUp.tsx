@@ -1,5 +1,4 @@
-import { useState } from "react";
-import ReactDatePicker from "react-datepicker";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Paper from "../assets/paper.png";
 import FooterBg from "../assets/signup_footer.png";
@@ -9,7 +8,8 @@ import InputText from "../components/InputText";
 import Label from "../components/Label";
 import LabelCaption from "../components/LabelCaption";
 import OrangeGridBg from "../components/OrangeGridBg";
-import { zhTW } from "date-fns/locale/zh-TW";
+import DatePicker from "react-date-picker";
+import CheckBox, { InputCheckBox } from "../components/CheckBox";
 
 const PaperBg = styled.div`
   background-image: url(${Paper});
@@ -78,53 +78,163 @@ const Radio = styled.input`
   }
 `;
 
-const CheckBox = styled.input`
-  appearance: none;
-  background-color: #fff;
-  margin: 0;
-  font: inherit;
-  color: currentColor;
-  width: 1em;
-  height: 1em;
-  border: 0.15em solid currentColor;
-  border-radius: 0.15em;
-  transform: translateY(-0.075em);
-  display: grid;
-  place-content: center;
-  margin-top: 4px;
-  &::before {
-    content: "";
-    width: 0.5em;
-    height: 0.5em;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-    transform: scale(0);
-    transform-origin: bottom left;
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em currentColor;
-  }
-  &:checked::before {
-    transform: scale(1);
-  }
-`;
-
 const url =
   "https://docs.google.com/forms/u/0/d/e/1FAIpQLScLW9Z5qgLyQaTWPpy9bdygbY1JNM2sNLtVAi4BKmRtodDvKA/formResponse";
 
-export default function SignUp() {
-  const [birthday, setBirthday] = useState<Date | null>(new Date());
+type DateValuePiece = Date | null;
+type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece];
 
-  const req = {
-    "entry.388213980": "6. 您的電子郵件",
+export default function SignUp() {
+  const [birthday, setBirthday] = useState<DateValue>(new Date());
+  const [otherSex, setOtherSex] = useState<string>("");
+  const [brand, setBrand] = useState<string[]>([]);
+  const [where, setWhere] = useState<string[]>([]);
+  const [why, setWhy] = useState<string[]>([]);
+  const [otherCare, setOtherCare] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null)
+  const [inputValue, setInputValue] = useState({
+    "entry.855994970": "", //1. 您的真實姓名
+    "entry.1973978883": "", //2. 您欲參加的組別
+    "entry.1434542737": "", //3. 您的性別
+    "entry.399421725_year": "", //4. 您的生日_年
+    "entry.399421725_month": "", //4. 您的生日_月
+    "entry.399421725_day": "", //4. 您的生日_日
+    "entry.1892106210": "", //5. 您的手機號碼
+    "entry.388213980": "", //6. 您的電子郵件
+    "entry.913934699": "", //7. 您的產品寄送地址（含郵遞區號）
+    "entry.2000482615": "", //8. 預計發文的Instagram社群平台連結
+    "entry.1782465680": "", //9. 預計發文的小紅書/tiktok帳號連結
+    "entry.844234350": "", //10. 參賽名稱
+    "entry.953380031": "", //12. 報名人數
+    "entry.1939934942": "", //13. 團體組組員姓名及Instagram帳號
+    "entry.832590299": "", //14. 請問您認識以下哪些髮品品牌？
+    "entry.832590299.other_option_response": "",
+    "entry.1709870411": "", //15. 請問您是從哪裡得知這個活動的？
+    "entry.1709870411.other_option_response": "",
+    "entry.1958309499": "", //16. 請問您為什麼想參加這個活動？
+    "entry.1958309499.other_option_response": "",
+    "entry.1477264882": "", //17. 您平常有護髮習慣嗎？
+    "entry.2147255090": "", //18. 承上題，若有您平常使用什麼護髮產品？
+    "entry.1695036427": "", //agree
+  });
+
+  const fetchData = useCallback(() => {
+    fetch(url, { method: "POST", body: JSON.stringify(inputValue), mode: "no-cors" })
+    
+    
+      .then((res) => {
+
+        console.log(inputValue)
+        console.log(res)
+      
+    })
+      .catch((err) => console.error(err));
+  }, [inputValue]);
+
+  const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const fetchData = () => {
-  //   fetch(url, { method: "POST", body: JSON.stringify(req), mode: "no-cors" })
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.error(err));
-  // };
+  const handleCheckBoxOnChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setState: React.Dispatch<React.SetStateAction<string[]>>
+  ) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    if (checked) {
+      setState((prev) => [...prev, value]);
+    } else {
+      setState((prev) => prev.filter((item) => item !== value));
+    }
+  };
+
+  const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    if (e.target.files){
+      setFile(e.target.files[0])
+    }
+  }
+
+  const handleOtherCheckBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    const name = e.target.name;
+    if (!checked) {
+      setInputValue((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  useEffect(() => {
+    if (birthday) {
+      const birthdayString = birthday.toLocaleString().split(" ")[0].split("/");
+      setInputValue((prev) => ({
+        ...prev,
+        "entry.399421725_year": birthdayString[0],
+        "entry.399421725_month": birthdayString[1],
+        "entry.399421725_day": birthdayString[2],
+      }));
+    }
+  }, [birthday]);
+
+  useEffect(() => {
+    setInputValue((prev) => ({
+      ...prev,
+      "entry.832590299": brand.join(","),
+    }));
+  }, [brand]);
+
+  useEffect(() => {
+    setInputValue((prev) => ({
+      ...prev,
+      "entry.1709870411": where.join(","),
+    }));
+  }, [where]);
+
+  useEffect(() => {
+    setInputValue((prev) => ({
+      ...prev,
+      "entry.1958309499": why.join(","),
+    }));
+  }, [why]);
+
+  useEffect(() => {
+    console.log(inputValue);
+  }, [inputValue]);
+
+  const handleUpload = async () => {
+    if (file) {
+      console.log("Uploading file...");
+  
+      const formData = new FormData();
+      formData.append("fileContent", file)
+      formData.append("fileName", "test")
+  
+      try {
+        // You can write the URL of your server or any other endpoint used for file upload
+        const result = await fetch("https://script.google.com/macros/s/AKfycbyVDVSYkapjfB5r1trQlD4lwLRrsJlYua6LVlrNRte0Knif4f6Acwiqf9aAL-YH0HnQ/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          body: formData,
+        });
+  
+        const data = await result.json();
+  
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <>
-      <OrangeGridBg className="w-full flex justify-center px-[100px]">
+      <OrangeGridBg className="w-full flex justify-center">
         <PaperBg className="mt-24 max-w-screen-xl">
           <form className="flex flex-col gap-14 pt-28 ps-28 pe-16">
             <div className="text-red text-[22px] font-bold">* 表示必填問題</div>
@@ -133,22 +243,38 @@ export default function SignUp() {
                 1. 您的真實姓名
               </Label>
               <LabelCaption>*若有資料不完整/有誤/重複報名等情事，將自動視同放棄</LabelCaption>
-              <InputText />
+              <InputText
+                id="userName"
+                name="entry.855994970"
+                value={inputValue["entry.855994970"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="group" required>
                 2. 您欲參加的組別
               </Label>
-
               <LabelCaption>*為確保參加者之權益，每人於各組別限報名及領取獎項1次</LabelCaption>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="group" id="person" />
+                    <Radio
+                      type="radio"
+                      name="entry.1973978883"
+                      id="person"
+                      value="個人組"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="person">個人組</label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="group" id="team" />
+                    <Radio
+                      type="radio"
+                      name="entry.1973978883"
+                      id="team"
+                      value="團體組"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="team">團體組</label>
                   </div>
                 </div>
@@ -161,16 +287,34 @@ export default function SignUp() {
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="sex" id="female" />
+                    <Radio
+                      type="radio"
+                      name="entry.1434542737"
+                      id="female"
+                      value="女性"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="female">女性</label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="sex" id="male" />
+                    <Radio
+                      type="radio"
+                      name="entry.1434542737"
+                      id="male"
+                      value="男性"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="male">男性</label>
                   </div>
                   <div className="flex items-center gap-2">
                     <div>
-                      <Radio type="radio" name="sex" id="other-sex" />
+                      <Radio
+                        type="radio"
+                        name="entry.1434542737"
+                        id="other-sex"
+                        value={otherSex}
+                        onChange={handleInputOnChange}
+                      />
                     </div>
                     <label className="text-nowrap" htmlFor="other-sex">
                       其他：
@@ -178,6 +322,17 @@ export default function SignUp() {
                     <input
                       className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      name="entry.1434542737"
+                      value={otherSex}
+                      onChange={(event) => {
+                        if (
+                          inputValue["entry.1434542737"] !== "女性" &&
+                          inputValue["entry.1434542737"] !== "男性"
+                        ) {
+                          handleInputOnChange(event);
+                        }
+                        setOtherSex(event.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -188,14 +343,13 @@ export default function SignUp() {
                 4. 您的生日
               </Label>
               <InputField>
-                <ReactDatePicker
-                  dateFormat="yyyy/MM/dd"
-                  locale={zhTW}
-                  className="bg-orange-100 border-orange-600 border-b text-[23px] text-orange-600 font-bold outline-orange-600 py-1 px-2"
-                  selected={birthday}
-                  onChange={(date) => {
-                    setBirthday(date);
-                  }}
+                <DatePicker
+                  value={birthday}
+                  onChange={setBirthday}
+                  calendarIcon={null}
+                  clearIcon={null}
+                  required
+                  className="bg-orange-100 border-orange-600 border-b text-orange-600"
                 />
               </InputField>
             </div>
@@ -203,7 +357,12 @@ export default function SignUp() {
               <Label htmlFor="phone" required>
                 5. 您的手機號碼
               </Label>
-              <InputText />
+              <InputText
+                id="phone"
+                name="entry.1892106210"
+                value={inputValue["entry.1892106210"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="email" required>
@@ -212,7 +371,12 @@ export default function SignUp() {
               <LabelCaption>
                 *作為後續聯繫使用，若有資料不完整/有誤導致無法聯繫的情況，將自動視同放棄
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="email"
+                name="entry.388213980"
+                value={inputValue["entry.388213980"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="address" required>
@@ -229,7 +393,12 @@ export default function SignUp() {
                   拍攝時所有產品皆須入鏡但以#魅尚萱小橘瓶 為主呈現
                 </UnderLineCaption>
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="address"
+                name="entry.913934699"
+                value={inputValue["entry.913934699"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="ig" required>
@@ -242,7 +411,12 @@ export default function SignUp() {
                 <br />
                 *團體組請填一名代表人帳號為發布影片者，最終認列評分以此帳號發布之影片讚數&影片內容加權分數計算為準
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="ig"
+                name="entry.2000482615"
+                value={inputValue["entry.2000482615"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="tiktok">9. 預計發文的小紅書/tiktok帳號連結</Label>
@@ -253,10 +427,15 @@ export default function SignUp() {
                 <br />
                 *會依此留存的帳號作為後續評分追蹤依據，若欲更改需私訊官方社群告知
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="tiktok"
+                name="entry.1782465680"
+                value={inputValue["entry.1782465680"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
-              <Label htmlFor="name" required>
+              <Label htmlFor="teamName" required>
                 10. 參賽名稱
               </Label>
               <LabelCaption>
@@ -264,7 +443,12 @@ export default function SignUp() {
                 <br />
                 *內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="teamName"
+                name="entry.844234350"
+                value={inputValue["entry.844234350"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="photo" required>
@@ -274,24 +458,35 @@ export default function SignUp() {
                 *顯示於參賽隊伍頁面，內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
               <InputField>
-                <input type="file" />
+                <input type="file" onChange={handleFileChange} />
               </InputField>
+              <div onClick={handleUpload}>upload</div>
             </div>
             <div>
               <Label htmlFor="people" required>
                 12. 報名人數
               </Label>
               <LabelCaption>*請填寫阿拉伯數字，若報名個人組請填1</LabelCaption>
-              <InputText />
+              <InputText
+                id="people"
+                name="entry.953380031"
+                value={inputValue["entry.953380031"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
-              <Label htmlFor="team_member">13. 團體組組員姓名及Instagram帳號</Label>
+              <Label htmlFor="teamMember">13. 團體組組員姓名及Instagram帳號</Label>
               <LabelCaption>
                 填寫方式請依照下方格式填寫：
                 <br />
                 Ex：魅小萱：https://www.instagram.com/miseenscenetw/
               </LabelCaption>
-              <InputText />
+              <InputText
+                id="teamMember"
+                name="entry.1939934942"
+                value={inputValue["entry.1939934942"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div>
               <Label htmlFor="brand" required>
@@ -299,37 +494,64 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="Mise-en-scène 魅尚萱" />
-                    <label htmlFor="Mise-en-scène 魅尚萱">Mise-en-scène 魅尚萱</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="Kérastase" />
-                    <label htmlFor="Kérastase">Kérastase</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="Moroccanoil" />
-                    <label htmlFor="Moroccanoil">Moroccanoil</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="Elastine伊絲婷" />
-                    <label htmlFor="Elastine伊絲婷">Elastine伊絲婷</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="L'Oréal Paris巴黎萊雅" />
-                    <label htmlFor="L'Oréal Paris巴黎萊雅">L'Oréal Paris巴黎萊雅</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="AQUAIR阿葵亞" />
-                    <label htmlFor="AQUAIR阿葵亞">AQUAIR阿葵亞</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="樂絲朵-L" />
-                    <label htmlFor="樂絲朵-L">樂絲朵-L</label>
-                  </div>
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="Mise-en-scène 魅尚萱"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="Kérastase"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="Moroccanoil"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="Elastine伊絲婷"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="L'Oréal Paris巴黎萊雅"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="AQUAIR阿葵亞"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setBrand);
+                    }}
+                    state={brand}
+                    value="樂絲朵-L"
+                  />
                   <div className="flex items-center gap-2">
                     <div>
-                      <CheckBox type="checkbox" name="" id="other-brand" />
+                      <InputCheckBox
+                        type="checkbox"
+                        name="entry.832590299.other_option_response"
+                        id="other-brand"
+                        onChange={handleOtherCheckBoxOnChange}
+                        checked={inputValue["entry.832590299.other_option_response"] !== ""}
+                      />
                     </div>
                     <label className="text-nowrap" htmlFor="other-brand">
                       其他：
@@ -337,6 +559,9 @@ export default function SignUp() {
                     <input
                       className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      name="entry.832590299.other_option_response"
+                      value={inputValue["entry.832590299.other_option_response"]}
+                      onChange={handleInputOnChange}
                     />
                   </div>
                 </div>
@@ -348,21 +573,36 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="官方粉絲團" />
-                    <label htmlFor="官方粉絲團">官方粉絲團</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="廣告" />
-                    <label htmlFor="廣告">廣告</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="朋友告知" />
-                    <label htmlFor="朋友告知">朋友告知</label>
-                  </div>
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhere);
+                    }}
+                    state={where}
+                    value="官方粉絲團"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhere);
+                    }}
+                    state={where}
+                    value="廣告"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhere);
+                    }}
+                    state={where}
+                    value="朋友告知"
+                  />
                   <div className="flex items-center gap-2">
                     <div>
-                      <CheckBox type="checkbox" name="" id="where-other" />
+                      <InputCheckBox
+                        type="checkbox"
+                        name="entry.1709870411.other_option_response"
+                        id="where-other"
+                        onChange={handleOtherCheckBoxOnChange}
+                        checked={inputValue["entry.1709870411.other_option_response"] !== ""}
+                      />
                     </div>
                     <label className="text-nowrap" htmlFor="where-other">
                       其他：
@@ -370,6 +610,9 @@ export default function SignUp() {
                     <input
                       className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      name="entry.1709870411.other_option_response"
+                      value={inputValue["entry.1709870411.other_option_response"]}
+                      onChange={handleInputOnChange}
                     />
                   </div>
                 </div>
@@ -381,21 +624,36 @@ export default function SignUp() {
               </Label>
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="喜歡跳舞" />
-                    <label htmlFor="喜歡跳舞">喜歡跳舞</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="之前就有關注魅尚萱" />
-                    <label htmlFor="之前就有關注魅尚萱">之前就有關注魅尚萱</label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckBox type="checkbox" name="" id="本身是aespa的粉絲" />
-                    <label htmlFor="本身是aespa的粉絲">本身是aespa的粉絲</label>
-                  </div>
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhy);
+                    }}
+                    state={why}
+                    value="喜歡跳舞"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhy);
+                    }}
+                    state={why}
+                    value="之前就有關注魅尚萱"
+                  />
+                  <CheckBox
+                    onChange={(e) => {
+                      handleCheckBoxOnChange(e, setWhy);
+                    }}
+                    state={why}
+                    value="本身是aespa的粉絲"
+                  />
                   <div className="flex items-center gap-2">
                     <div>
-                      <CheckBox type="checkbox" name="" id="why-other" />
+                      <InputCheckBox
+                        type="checkbox"
+                        name="entry.1958309499.other_option_response"
+                        id="why-other"
+                        onChange={handleOtherCheckBoxOnChange}
+                        checked={inputValue["entry.1958309499.other_option_response"] !== ""}
+                      />
                     </div>
                     <label className="text-nowrap" htmlFor="why-other">
                       其他：
@@ -403,6 +661,9 @@ export default function SignUp() {
                     <input
                       className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      name="entry.1958309499.other_option_response"
+                      value={inputValue["entry.1958309499.other_option_response"]}
+                      onChange={handleInputOnChange}
                     />
                   </div>
                 </div>
@@ -415,20 +676,44 @@ export default function SignUp() {
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="hair" id="有" />
+                    <Radio
+                      type="radio"
+                      name="entry.1477264882"
+                      id="有"
+                      value="有"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="有">有</label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="hair" id="偶爾" />
+                    <Radio
+                      type="radio"
+                      name="entry.1477264882"
+                      id="偶爾"
+                      value="偶爾"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="偶爾">偶爾</label>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="hair" id="不護髮" />
+                    <Radio
+                      type="radio"
+                      name="entry.1477264882"
+                      id="不護髮"
+                      value="不護髮"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="不護髮">不護髮</label>
                   </div>
                   <div className="flex items-center gap-2">
                     <div>
-                      <Radio type="radio" name="hair" id="hair-other" />
+                      <Radio
+                        type="radio"
+                        name="entry.1477264882"
+                        id="hair-other"
+                        value={otherCare}
+                        onChange={handleInputOnChange}
+                      />
                     </div>
                     <label className="text-nowrap" htmlFor="hair-other">
                       其他：
@@ -436,6 +721,17 @@ export default function SignUp() {
                     <input
                       className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      value={otherCare}
+                      onChange={(event) => {
+                        if (
+                          inputValue["entry.1477264882"] !== "有" &&
+                          inputValue["entry.1477264882"] !== "偶爾" &&
+                          inputValue["entry.1477264882"] !== "不護髮"
+                        ) {
+                          handleInputOnChange(event);
+                        }
+                        setOtherCare(event.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -446,7 +742,12 @@ export default function SignUp() {
                 18. 承上題，若有您平常使用什麼護髮產品？
               </Label>
               <LabelCaption>*若不護髮則填無</LabelCaption>
-              <InputText />
+              <InputText
+                id="care"
+                name="entry.2147255090"
+                value={inputValue["entry.2147255090"]}
+                onChange={handleInputOnChange}
+              />
             </div>
             <div className="ms-[-20px]">
               <Label htmlFor="" required>
@@ -500,7 +801,13 @@ export default function SignUp() {
               <InputField>
                 <div className="text-[23px] text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
-                    <Radio type="radio" name="agree" id="agree" />
+                    <Radio
+                      type="radio"
+                      name="entry.1695036427"
+                      id="agree"
+                      value="我同意"
+                      onChange={handleInputOnChange}
+                    />
                     <label htmlFor="agree">我同意</label>
                   </div>
                 </div>
@@ -510,7 +817,7 @@ export default function SignUp() {
               <Submit
                 type="button"
                 className="w-[232px] h-[64px] text-white text-[36px] font-bold tracking-widest"
-                // onClick={fetchData}
+                onClick={fetchData}
               >
                 提交
               </Submit>

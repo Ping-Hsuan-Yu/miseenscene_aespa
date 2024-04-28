@@ -1,30 +1,76 @@
-import bg from "../assets/img03-1.png";
+import dot from "../assets/img03-1_01.png";
+import dance from "../assets/img03-1_02.png";
+import paper from "../assets/img03-1_03.png";
 import timelineImg from "../assets/img03-2.png";
+import timelineImgM from "../assets/img03-2-m.png";
+import Video from "../assets/0320_Horizontal_All_16X9_KR_NT.mp4";
+import styled from "styled-components";
 
 const Title = (props: { text: string }) => (
   <div className="relative">
     <div className="flex">
-      <div className="bg-orange-600 w-10 h-10 text-center rounded-full mx-[-4px]"></div>
-      <div className="bg-orange-600 w-10 h-10 text-center rounded-full mx-[-4px]"></div>
-      <div className="bg-orange-600 w-10 h-10 text-center rounded-full mx-[-4px]"></div>
-      <div className="bg-orange-600 w-10 h-10 text-center rounded-full mx-[-4px]"></div>
+      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
     </div>
-    <span className="text-[25px] text-white font-black absolute top-0 left-1 tracking-[7px]">
+    <span className="text-2xl md:text-[25px] text-white font-black absolute top-0 md:top-0.5 left-1 tracking-[7px]">
       {props.text}
     </span>
   </div>
 );
 
-export default function Section4() {
+const Bg = styled.div`
+  background-color: #fff0bb;
+  border: 5px solid #ff8106;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 0px 3px rgba(255, 255, 255, 0.9);
+  padding-left: clamp(16px, 5vw, 64px);
+  padding-right: clamp(16px, 5vw, 64px);
+  padding-top: clamp(32px, 10vw, 128px);
+  padding-bottom: clamp(24px, 7.5vw, 96px);
+  @media (min-width: 768px) {
+    border: 10px solid #ff8106;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 0px 5px rgba(255, 255, 255, 0.9);
+  }
+`;
+
+const Paper = styled.div`
+  background-image: url(${paper});
+  background-size: contain;
+  padding-left: clamp(18px, 6.6vw, 80px);
+  padding-right: clamp(18px, 5.6vw, 80px);
+  padding-top: clamp(32px, 10vw, 128px);
+  padding-bottom: clamp(24px, 7.5vw, 96px);
+  @media (min-width: 1024px) {
+    background-size: cover;
+  }
+`;
+
+const Dot = styled.img`
+  top: max(-38.4px);
+  top: -3vw;
+`;
+
+const Dance = styled.img`
+  top: max(-89.6px);
+  top: -7vw;
+`;
+
+export default function Section4(props: { ref3: React.MutableRefObject<HTMLElement | null> }) {
   return (
-    <section className="flex justify-center">
-      <div className="mt-[100px] relative max-w-screen-xl">
-        <img className="object-contain max-w-[1102px] max-h-[4367px]" src={bg} />
-        <div className="absolute left-[200px] top-[150px] flex flex-col gap-10 font-bold text-brown-800font-bold text-brown-800 text-lg leading-relaxed">
+    <section className="flex justify-center my-8 lg:my-16 px-4 lg:px-8 ref" ref={props.ref3}>
+      <Bg className="font-bold text-brown-800 text md:text-lg leading-relaxed px-4 pt-8 pb-6">
+        <div className="relative w-full">
+          <Dot src={dot} className="absolute w-[6.8%] max-w-[73px] right-[46.5%]" />
+          <Dance src={dance} className="absolute w-[36.2%] max-w-[387px] right-[-3%] " />
+        </div>
+        <Paper className="flex flex-col gap-10">
           <div>
             <Title text="報名資格" />
             <div className="mt-2.5">
-              <div className="text-orange-600 text-[22px]">參賽人數</div>
+              <div className="text-orange-600 text-xl md:text-[22px]">參賽人數</div>
               <div>
                 <span className="text-orange-600">個人組：</span>僅限個人報名參加
               </div>
@@ -72,12 +118,16 @@ export default function Section4() {
               <li>以Instagram貼文之愛心數加個項目加權分為最終分數。</li>
               <li>依照最終分數加總評選出個人組與團體組前3名並隨機抽出特別獎各3名。</li>
             </ol>
-            <div className="mt-6 text-orange-600 text-[22px]">-個人組評分規則-</div>
+            <div className="mt-6 text-white text-lg md:text-[22px]">
+              <span className="bg-brown-950 rounded-md px-2">-個人組評分規則-</span>
+            </div>
             <ol className="mt-1 list-decimal ps-6">
               <li>影片中使用完美修護護髮精油及完成指定創意內容：+50分</li>
               <li>完成個人組指定項目內容：+30分（產品須清楚展示，若無則判定資格不符）</li>
             </ol>
-            <div className="mt-6 text-orange-600 text-[22px]">-個人組指定創意內容-</div>
+            <div className="mt-6 text-white text-lg md:text-[22px]">
+              <span className="bg-brown-950 rounded-md px-2">-個人組指定創意內容-</span>
+            </div>
             <div className="mt-1 ">
               影片中<span className="text-orange-600">使用 #魅尚萱小橘瓶 完美修護護髮精油</span>
               擦拭髮尾，呈現秀髮柔順光澤的形象
@@ -86,8 +136,8 @@ export default function Section4() {
               <br />
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
-            <div className="flex justify-center ms-[-100px] my-8">
-              <img className="w-[574px] h-[324px]" src="" alt="" />
+            <div className="flex justify-center my-8">
+              <video className="w-[574px]" autoPlay loop muted src={Video} />
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
@@ -114,7 +164,9 @@ export default function Section4() {
               </li>
               <li>若多發布於小紅書/tiktok等平台，每一平台額外加權：+5分（此項目最多+10分）</li>
             </ol>
-            <div className="mt-6 text-orange-600 text-[22px]">-團體組評分規則-</div>
+            <div className="mt-6 text-white text-lg md:text-[22px]">
+              <span className="bg-brown-950 rounded-md px-2">-團體組評分規則-</span>
+            </div>
             <ol className="mt-1 list-decimal ps-6">
               <li>影片中使用完美修護護髮精油及完成指定創意內容：+50分</li>
               <li>
@@ -123,7 +175,9 @@ export default function Section4() {
                 進行共50分的分數加權，創意執行以魅尚萱內部評審團為主
               </li>
             </ol>
-            <div className="mt-6 text-orange-600 text-[22px]">-團體組指定創意內容-</div>
+            <div className="mt-6 text-white text-lg md:text-[22px]">
+              <span className="bg-brown-950 rounded-md px-2">-團體組指定創意內容-</span>
+            </div>
             <div className="mt-1 ">
               舞蹈中結合使用<span className="text-orange-600"> #魅尚萱小橘瓶 完美修護護髮精油</span>
               的創意內容發展，呈現秀髮柔順光澤的形象為主
@@ -132,8 +186,8 @@ export default function Section4() {
               <br />
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
-            <div className="flex justify-center ms-[-100px] my-8">
-              <img className="w-[574px] h-[324px]" src="" alt="" />
+            <div className="flex justify-center my-8">
+              <video className="w-[574px]" autoPlay loop muted src={Video} />
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
@@ -164,13 +218,14 @@ export default function Section4() {
           <div>
             <Title text="活動時程" />
             <div className="my-10">
-              <img className="w-[px] h-[px]" src={timelineImg} alt="" />
+              <img className="w-full hidden md:block" src={timelineImg} alt="" />
+              <img className="w-full md:hidden" src={timelineImgM} alt="" />
             </div>
-            <div>『寄送產品：完美修護護髮精油為拍攝道具使用，個人組1瓶，團體組4瓶』</div>
+            <div>*活動贈品將於名次公告後陸續安排寄送</div>
           </div>
           <div>
             <Title text="活動獎項" />
-            <div className="mt-2.5 text-orange-600 text-[22px]">-個人組獎項-</div>
+            <div className="mt-2.5 text-orange-600 text-xl md:text-[22px]">-個人組獎項-</div>
             <div>
               <span className="text-orange-600">首獎：</span>
               $20,000＋完美修護護髮精油全系列，共五款（總價值$1,995）
@@ -178,18 +233,17 @@ export default function Section4() {
               <span className="text-orange-600">二獎：</span>
               $10,000＋完美修護護髮精油全系列，共五款（總價值$1,995）
               <br />
-              <span className="text-orange-600">三獎：</span>
-              完美修護護髮精油一年份（共5款）＋完美修護全系列商品兩組
+              <span className="text-orange-600">魅尚萱鐵粉獎：</span>
+              魅尚萱明星商品正貨（總價值$10,387）
               <br />
-              （含完美修護精油洗髮精680ml、精油潤髮乳680ml、護髮霜330ml、免沖洗精華乳200ml、
-              <br />
-              3分鐘沙龍級髮膜300ml、完美修護護髮噴霧150ml）＋髮肌賦活香氛全系列兩組
-              <br />
-              （含洗髮精900ml、護髮膜900ml）＋Salon 10沙龍級多重胺基酸全系列
-              <br />
-              （含洗髮精500ml、護髮霜250ml）。（總價值$10,387）
+              <span className="text-sm font-medium">
+                內含完美修護護髮精油一年份(共5款)＋完美修護全系列商品兩組(含完美修護精油洗髮精680ml、精油潤髮乳680ml、
+                護髮霜330ml、免沖洗精華乳200ml、3分鐘沙龍級髮膜300ml、完美修護護髮噴霧150ml)＋髮肌賦活香氛全系列兩組
+                (含洗髮精900ml、護髮膜900ml)＋Salon
+                10沙龍級多重胺基酸全系列(含洗髮精500ml、護髮霜250ml)。
+              </span>
             </div>
-            <div className="mt-2.5 text-orange-600 text-[22px]">-團體組獎項-</div>
+            <div className="mt-2.5 text-orange-600 text-xl md:text-[22px]">-團體組獎項-</div>
             <div>
               <span className="text-orange-600">首獎：</span>
               $40,000＋完美修護護髮精油全系列，共五款（總價值$1,995）
@@ -197,37 +251,38 @@ export default function Section4() {
               <span className="text-orange-600">二獎：</span>
               $30,000＋完美修護護髮精油全系列，共五款（總價值$1,995）
               <br />
-              <span className="text-orange-600">三獎：</span>
-              完美修護護髮精油一年份（共5款）＋完美修護全系列商品兩組
+              <span className="text-orange-600">魅尚萱鐵粉獎：</span>
+              魅尚萱明星商品正貨（總價值$10,387）
               <br />
-              （含完美修護精油洗髮精680ml、精油潤髮乳680ml、護髮霜330ml、免沖洗精華乳200ml、
-              <br />
-              3分鐘沙龍級髮膜300ml、完美修護護髮噴霧150ml）＋髮肌賦活香氛全系列兩組
-              <br />
-              （含洗髮精900ml、護髮膜900ml）＋Salon 10沙龍級多重胺基酸全系列
-              <br />
-              （含洗髮精500ml、護髮霜250ml）。（總價值$10,387）
+              <span className="text-sm font-medium">
+                內含完美修護護髮精油一年份(共5款)＋完美修護全系列商品兩組(含完美修護精油洗髮精680ml、精油潤髮乳680ml、
+                護髮霜330ml、免沖洗精華乳200ml、3分鐘沙龍級髮膜300ml、完美修護護髮噴霧150ml)＋髮肌賦活香氛全系列兩組
+                (含洗髮精900ml、護髮膜900ml)＋Salon
+                10沙龍級多重胺基酸全系列(含洗髮精500ml、護髮霜250ml)。
+              </span>
             </div>
-            <div className="mt-2.5 text-orange-600 text-[22px]">-特別獎獎項-</div>
+            <div className="mt-2.5 text-orange-600 text-xl md:text-[22px]">-特別獎獎項-</div>
             <ol className="list-decimal ps-6 text-orange-600">
               <li>
                 〝頭〞號完美女生獎*1：
                 <span className="text-brown-800">
-                  完美修護護髮精油全系列，共五款＋泡泡先生<br/>
+                  完美修護護髮精油全系列，共五款＋泡泡先生
+                  <br />
                   完美修護精油聯名限定禮盒-款式隨機（總價值$2,824）
                 </span>
               </li>
               <li>
                 髮絲都在跳舞獎*2：
                 <span className="text-brown-800">
-                  完美修護護髮精油全系列，共五款（總價值$1,995）<br/>
+                  完美修護護髮精油全系列，共五款（總價值$1,995）
+                  <br />
                   *特別獎為排除各組別前三名後隨機抽出，個人組及團體組每組共抽出以上3名
                 </span>
               </li>
             </ol>
           </div>
-        </div>
-      </div>
+        </Paper>
+      </Bg>
     </section>
   );
 }

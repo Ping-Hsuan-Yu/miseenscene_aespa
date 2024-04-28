@@ -4,3 +4,47 @@
 @tailwind components;
 @tailwind utilities;
 
+.ref {
+    scroll-margin: 163px;
+}
+
+.text-22 {
+    font-size: clamp(16px, 1.5625vw, 22px);
+}
+
+.text-40 {
+    font-size: clamp(20px, 3.125vw, 40px);
+}
+
+.text-50 {
+    font-size: clamp(28px, 3.90625vw, 50px);
+}
+
+.Sec02Img2{
+    max-width: 258px;
+    width: 20.15625vw;
+}
+
+.Sec02Img2m{
+    max-width: 400px;
+    width: 39vw;
+    top: clamp(calc(28px + 61.63vw),calc(62vw),calc(90px + 62vw));
+}
+
+.Sec02Img3{
+    max-width: 117px;
+    width: 9.140625vw;
+    right: 0;
+    top: clamp(84px,21vw,300px);
+}
+
+.Sec02Img4{
+    max-width: 443px;
+    width: 34.609375vw;
+    right: 0;
+}
+
+.Sec02Video{
+    margin-top: clamp(16px, 5vw, 40px);
+    margin-bottom: clamp(48px, 15vw, 128px);
+}

@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import "./style/datepicker.css";
+import './style/DatePicker.css';
+import './style/Calendar.css';
 import "./style/output.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 

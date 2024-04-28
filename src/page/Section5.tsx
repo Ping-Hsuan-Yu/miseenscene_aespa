@@ -1,42 +1,51 @@
 import Sec05Img1 from "../assets/img05-1.png";
+import Sec05Img1m from "../assets/img05-1-m.png";
 import Sec05Img2 from "../assets/img05-2.png";
 import Sec05Img3 from "../assets/img05-3.png";
 import Sec05Img4 from "../assets/img05-4.png";
 import Card from "../components/Card";
 import OrangeGridBg from "../components/OrangeGridBg";
 
-export default function Section5() {
+export default function Section5(props: {
+  ref4: React.MutableRefObject<HTMLElement | null>;
+  ref5: React.MutableRefObject<HTMLElement | null>;
+}) {
   return (
-    <section className="flex justify-center">
-      <OrangeGridBg className="mt-[-225px] w-full flex justify-center">
-        <div className="mt-[300px] max-w-screen-xl flex flex-col items-center">
+    <section className="flex justify-center ref" ref={props.ref4}>
+      <OrangeGridBg className="w-dvw flex justify-center">
+        <div className="max-w-screen-xl w-dvw flex flex-col items-center mt-10 px-4 md:px-8">
           <img
-            className="object-contain max-w-[988px] max-h-[243px]"
+            className="md:hidden object-contain w-full "
+            src={Sec05Img1m}
+            alt="參賽隊伍"
+          />
+          <img
+            className="hidden md:block object-contain w-full max-w-[988px]"
             src={Sec05Img1}
             alt="參賽隊伍"
           />
           <Card />
-          <footer>
+          <footer className="ref" ref={props.ref5}>
             <div className="mt-[20px] relative flex justify-center">
-              <img className="object-contain max-w-[] max-h-[]" src={Sec05Img2} alt="參賽隊伍" />
-              <div className="absolute top-56 flex gap-16">
-                <a href="" target="_blank">
+              <img className="object-contain w-full max-w-[985px]" src={Sec05Img2} alt="" />
+              <div className="absolute top-[60%] flex gap-[6vw] w-1/4 min-w-[128px]">
+                <a href="https://www.facebook.com/miseensceneTW" target="_blank">
                   <img
-                    className="object-contain max-w-[] max-h-[]"
+                    className="object-contain w-full max-w-[] max-h-[]"
                     src={Sec05Img3}
                     alt="facebook"
                   />
                 </a>
-                <a href="" target="_blank">
+                <a href="https://www.instagram.com/miseenscenetw/" target="_blank">
                   <img
-                    className="object-contain max-w-[] max-h-[]"
+                    className="object-contain w-full max-w-[] max-h-[]"
                     src={Sec05Img4}
                     alt="instagram"
                   />
                 </a>
               </div>
             </div>
-            <div className="w-full px-[100px] text-white text-[14px] font-bold my-12 leading-loose">
+            <div className="w-full text-white text-[14px] font-bold my-12 leading-loose">
               <div>注意事項</div>
               <ol className="list-decimal ps-4">
                 <li>
