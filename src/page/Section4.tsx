@@ -49,13 +49,11 @@ const Paper = styled.div`
 `;
 
 const Dot = styled.img`
-  top: max(-38.4px);
-  top: -3vw;
+  top: clamp(-38.4px, -3vw, -3vw);
 `;
 
 const Dance = styled.img`
-  top: max(-89.6px);
-  top: -7vw;
+  top: clamp(-89.6px, -7vw, -7vw);
 `;
 
 export default function Section4(props: { ref3: React.MutableRefObject<HTMLElement | null> }) {

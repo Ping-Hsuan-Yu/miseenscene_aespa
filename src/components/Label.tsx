@@ -12,7 +12,7 @@ export default function Label(props: { children?: ReactNode; required?: boolean;
   const { children, required, htmlFor } = props;
   return (
     <CustomLabel
-      className={`${required ? "required" : ""} text-brown-950 text-[29px] font-bold tracking-wide`}
+      className={`${required ? "required" : ""} text-brown-950 text-29 font-bold tracking-wide`}
       htmlFor={htmlFor}
     >
       {children}

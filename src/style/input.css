@@ -8,8 +8,28 @@
     scroll-margin: 163px;
 }
 
+.text-15 {
+    font-size: clamp(12px, 1.171875vw, 15px);
+}
+
+.text-20 {
+    font-size: clamp(14px, 1.5625vw, 20px);
+}
+
 .text-22 {
-    font-size: clamp(16px, 1.5625vw, 22px);
+    font-size: clamp(16px, 1.71875vw, 22px);
+}
+
+.text-23 {
+    font-size: clamp(18px, 1.796875vw, 23px);
+}
+
+.text-29 {
+    font-size: clamp(20px, 2.265625vw, 29px);
+}
+
+.text-36 {
+    font-size: clamp(22px, 2.8125vw, 36px);
 }
 
 .text-40 {
@@ -47,4 +67,8 @@
 .Sec02Video{
     margin-top: clamp(16px, 5vw, 40px);
     margin-bottom: clamp(48px, 15vw, 128px);
+}
+
+.orange-grid {
+    background-image: url("../assets/img04-1.png");
 }

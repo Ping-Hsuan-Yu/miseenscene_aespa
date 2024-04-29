@@ -1,53 +1,45 @@
 import { useCallback, useEffect, useState } from "react";
+import DatePicker from "react-date-picker";
 import styled from "styled-components";
 import Paper from "../assets/paper.png";
-import FooterBg from "../assets/signup_footer.png";
-import ButtonBg from "../assets/submit.png";
+import S02 from "../assets/s02.png";
+import S03 from "../assets/s03.png";
+import S04 from "../assets/s04.png";
+import S05 from "../assets/s05.png";
+import S06 from "../assets/s06.png";
+import S07 from "../assets/s07.png";
+import S08 from "../assets/s08.png";
+import S09 from "../assets/s09.png";
+import S10 from "../assets/s10.png";
+import S11 from "../assets/s11.png";
+import S12 from "../assets/s12.png";
+import S13 from "../assets/s13.png";
+import S14 from "../assets/s14.png";
+import S15 from "../assets/s15.png";
+import CheckBox, { InputCheckBox } from "../components/CheckBox";
 import InputField from "../components/InputField";
 import InputText from "../components/InputText";
 import Label from "../components/Label";
 import LabelCaption from "../components/LabelCaption";
-import OrangeGridBg from "../components/OrangeGridBg";
-import DatePicker from "react-date-picker";
-import CheckBox, { InputCheckBox } from "../components/CheckBox";
 
 const PaperBg = styled.div`
   background-image: url(${Paper});
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-`;
-
-const UnderLineCaption = styled.div`
-  position: relative;
-  width: fit-content;
-  z-index: 1;
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #ff8106;
-    opacity: 0.2;
-    height: 10px;
-    width: 100%;
-    border-radius: 10px;
-    z-index: 0;
+  background-size: contain;
+  @media (min-width: 690px) {
+    background-size: cover;
   }
 `;
 
-const Submit = styled.button`
-  background-image: url(${ButtonBg});
+const UnderLineCaption = styled.span`
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 131, 6, 0.2);
 `;
 
-const Footer = styled.div`
-  background-image: url(${FooterBg});
-  width: 100%;
-  height: 342px;
-  margin-top: -242px;
+const Submit = styled.button`
+  background-color: #ff8106;
+  padding: 4px 36px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 1px 0.5px #db4f02;
 `;
 
 const Radio = styled.input`
@@ -91,7 +83,7 @@ export default function SignUp() {
   const [where, setWhere] = useState<string[]>([]);
   const [why, setWhy] = useState<string[]>([]);
   const [otherCare, setOtherCare] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null)
+  const [file, setFile] = useState<File | null>(null);
   const [inputValue, setInputValue] = useState({
     "entry.855994970": "", //1. 您的真實姓名
     "entry.1973978883": "", //2. 您欲參加的組別
@@ -120,14 +112,10 @@ export default function SignUp() {
 
   const fetchData = useCallback(() => {
     fetch(url, { method: "POST", body: JSON.stringify(inputValue), mode: "no-cors" })
-    
-    
       .then((res) => {
-
-        console.log(inputValue)
-        console.log(res)
-      
-    })
+        console.log(inputValue);
+        console.log(res);
+      })
       .catch((err) => console.error(err));
   }, [inputValue]);
 
@@ -150,11 +138,11 @@ export default function SignUp() {
     }
   };
 
-  const handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
-    if (e.target.files){
-      setFile(e.target.files[0])
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
     }
-  }
+  };
 
   const handleOtherCheckBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -207,24 +195,27 @@ export default function SignUp() {
   const handleUpload = async () => {
     if (file) {
       console.log("Uploading file...");
-  
+
       const formData = new FormData();
-      formData.append("fileContent", file)
-      formData.append("fileName", "test")
-  
+      formData.append("fileContent", file);
+      formData.append("fileName", "test");
+
       try {
         // You can write the URL of your server or any other endpoint used for file upload
-        const result = await fetch("https://script.google.com/macros/s/AKfycbyVDVSYkapjfB5r1trQlD4lwLRrsJlYua6LVlrNRte0Knif4f6Acwiqf9aAL-YH0HnQ/exec", {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          },
-          body: formData,
-        });
-  
+        const result = await fetch(
+          "https://script.google.com/macros/s/AKfycbyVDVSYkapjfB5r1trQlD4lwLRrsJlYua6LVlrNRte0Knif4f6Acwiqf9aAL-YH0HnQ/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+            body: formData,
+          }
+        );
+
         const data = await result.json();
-  
+
         console.log(data);
       } catch (error) {
         console.error(error);
@@ -234,11 +225,82 @@ export default function SignUp() {
 
   return (
     <>
-      <OrangeGridBg className="w-full flex justify-center">
-        <PaperBg className="mt-24 max-w-screen-xl">
-          <form className="flex flex-col gap-14 pt-28 ps-28 pe-16">
-            <div className="text-red text-[22px] font-bold">* 表示必填問題</div>
-            <div>
+      <div className="w-full px-2 pt-6 md:px-20 md:pt-24">
+        <div className="relative w-full">
+          <img
+            src={S02}
+            className="hidden md:block absolute w-[42.1%] max-w-[472px] top-[-80px] right-[-5%]"
+          />
+          <img
+            src={S03}
+            className="hidden md:block absolute w-[7.67%] max-w-[86px] left-[-5%]"
+            style={{ top: "clamp(0px,28.1vw,360px)" }}
+          />
+          <img
+            src={S04}
+            className="hidden md:block absolute w-[13.75%] max-w-[154px] right-[-5%]"
+            style={{ top: "clamp(23px,23.4vw,300px)" }}
+          />
+          <img
+            src={S05}
+            className="hidden md:block absolute w-[15.9%] max-w-[178px] left-[-8%]"
+            style={{ top: "clamp(0px,54vw,700px)" }}
+          />
+          <img
+            src={S06}
+            className="hidden md:block absolute w-[14.4%] max-w-[161px] right-[-4%]"
+            style={{ top: "clamp(0px,109vw,1400px)" }}
+          />
+          <img
+            src={S07}
+            className="hidden md:block absolute w-[8%] max-w-[90px] right-[-4%]"
+            style={{ top: "clamp(0px,123vw,1580px)" }}
+          />
+          <img
+            src={S08}
+            className="hidden md:block absolute w-[11.25%] max-w-[126px] left-[-12%]"
+            style={{ top: "clamp(0px,146vw,1880px)" }}
+          />
+          <img
+            src={S09}
+            className="hidden md:block absolute w-[7.4%] max-w-[83px] left-[-10%]"
+            style={{ top: "clamp(0px,168vw,2150px)" }}
+          />
+          <img
+            src={S10}
+            className="hidden md:block absolute w-[19.8%] max-w-[222px] right-[-8%]"
+            style={{ top: "clamp(0px,178vw,2280px)" }}
+          />
+          <img
+            src={S11}
+            className="hidden md:block absolute w-[22.4%] max-w-[251px] right-[-8%]"
+            style={{ top: "clamp(0px,210vw,2700px)" }}
+          />
+          <img
+            src={S12}
+            className="hidden md:block absolute w-[15.7%] max-w-[171px] right-[-8%]"
+            style={{ top: "clamp(0px,265vw,3400px)" }}
+          />
+          <img
+            src={S13}
+            className="hidden md:block absolute w-[14.6%] max-w-[164px] left-[-15%]"
+            style={{ top: "clamp(0px,289vw,3700px)" }}
+          />
+          <img
+            src={S14}
+            className="hidden md:block absolute w-[7.58%] max-w-[85px] left-[-10%]"
+            style={{ top: "clamp(0px,343vw,4400px)" }}
+          />
+          <img
+            src={S15}
+            className="hidden md:block absolute w-[9.46%] max-w-[106px] right-[-8%]"
+            style={{ top: "clamp(0px,328vw,4200px)" }}
+          />
+        </div>
+        <PaperBg className="max-w-screen-xl ps-6 pe-4 pt-8 md:ps-16 md:pe-14 md:pt-16 lg:ps-20 xl:pe-16 ">
+          <form className="flex flex-col gap-7">
+            <div className="text-red text-22 font-bold">* 表示必填問題</div>
+            <div className="flex flex-col">
               <Label htmlFor="userName" required>
                 1. 您的真實姓名
               </Label>
@@ -250,13 +312,13 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="group" required>
                 2. 您欲參加的組別
               </Label>
               <LabelCaption>*為確保參加者之權益，每人於各組別限報名及領取獎項1次</LabelCaption>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
@@ -280,12 +342,12 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="sex" required>
                 3. 您的性別
               </Label>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
@@ -320,7 +382,7 @@ export default function SignUp() {
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                       name="entry.1434542737"
                       value={otherSex}
@@ -338,7 +400,7 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="birthday" required>
                 4. 您的生日
               </Label>
@@ -353,7 +415,7 @@ export default function SignUp() {
                 />
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="phone" required>
                 5. 您的手機號碼
               </Label>
@@ -363,8 +425,8 @@ export default function SignUp() {
                 value={inputValue["entry.1892106210"]}
                 onChange={handleInputOnChange}
               />
-            </div>
-            <div>
+            </div>{" "}
+            <div className="flex flex-col">
               <Label htmlFor="email" required>
                 6. 您的電子郵件
               </Label>
@@ -378,12 +440,12 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="address" required>
                 7. 您的產品寄送地址（含郵遞區號）
               </Label>
               <LabelCaption>
-                Ex：110 台北市信義區信義路五段7號
+                Ex:110 台北市信義區信義路五段7號
                 <br />
                 *團體組一人代表填寫即可，個人組提供拍攝產品完美修護護髮精油1瓶
                 <br />
@@ -400,12 +462,12 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="ig" required>
                 8. 預計發文的Instagram社群平台連結
               </Label>
               <LabelCaption>
-                EX：https://www.instagram.com/miseenscenetw/
+                EX:instagram.com/miseenscenetw/
                 <br />
                 *會依此留存的帳號作為後續評分追蹤依據，若欲更改需私訊官方社群告知
                 <br />
@@ -418,10 +480,10 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
-              <Label htmlFor="tiktok">9. 預計發文的小紅書/tiktok帳號連結</Label>
+            <div className="flex flex-col">
+              <Label htmlFor="tiktok">9. 預計發文的小紅書 / tiktok帳號連結</Label>
               <LabelCaption>
-                Ex：https://www.tiktok.com/@miseenscenetw
+                Ex:tiktok.com/@miseenscenetw
                 <br />
                 *此為非必要之額外加權項目
                 <br />
@@ -434,7 +496,7 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="teamName" required>
                 10. 參賽名稱
               </Label>
@@ -450,7 +512,7 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="photo" required>
                 11. 參賽證照片上傳
               </Label>
@@ -458,11 +520,14 @@ export default function SignUp() {
                 *顯示於參賽隊伍頁面，內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
               <InputField>
-                <input type="file" onChange={handleFileChange} />
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="w-full text-23px text-orange-600 font-bold bg-orange-100 outline-none"
+                />
               </InputField>
-              <div onClick={handleUpload}>upload</div>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="people" required>
                 12. 報名人數
               </Label>
@@ -474,12 +539,12 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="teamMember">13. 團體組組員姓名及Instagram帳號</Label>
               <LabelCaption>
                 填寫方式請依照下方格式填寫：
                 <br />
-                Ex：魅小萱：https://www.instagram.com/miseenscenetw/
+                Ex:魅小萱:instagram.com/miseenscenetw/
               </LabelCaption>
               <InputText
                 id="teamMember"
@@ -488,12 +553,12 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="brand" required>
                 14. 請問您認識以下哪些髮品品牌？
               </Label>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
                     onChange={(e) => {
                       handleCheckBoxOnChange(e, setBrand);
@@ -557,7 +622,7 @@ export default function SignUp() {
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                       name="entry.832590299.other_option_response"
                       value={inputValue["entry.832590299.other_option_response"]}
@@ -567,12 +632,12 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="where" required>
                 15. 請問您是從哪裡得知這個活動的？
               </Label>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
                     onChange={(e) => {
                       handleCheckBoxOnChange(e, setWhere);
@@ -608,7 +673,7 @@ export default function SignUp() {
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                       name="entry.1709870411.other_option_response"
                       value={inputValue["entry.1709870411.other_option_response"]}
@@ -618,12 +683,12 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="why" required>
                 16. 請問您為什麼想參加這個活動？
               </Label>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
                     onChange={(e) => {
                       handleCheckBoxOnChange(e, setWhy);
@@ -659,7 +724,7 @@ export default function SignUp() {
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                       name="entry.1958309499.other_option_response"
                       value={inputValue["entry.1958309499.other_option_response"]}
@@ -669,12 +734,12 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="hair" required>
                 17. 您平常有護髮習慣嗎？
               </Label>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
@@ -719,7 +784,7 @@ export default function SignUp() {
                       其他：
                     </label>
                     <input
-                      className="w-full text-[23px] text-orange-600 font-bold bg-orange-100 outline-none border-b"
+                      className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
                       value={otherCare}
                       onChange={(event) => {
@@ -737,7 +802,7 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div>
+            <div className="flex flex-col">
               <Label htmlFor="care" required>
                 18. 承上題，若有您平常使用什麼護髮產品？
               </Label>
@@ -749,11 +814,11 @@ export default function SignUp() {
                 onChange={handleInputOnChange}
               />
             </div>
-            <div className="ms-[-20px]">
+            <div className="">
               <Label htmlFor="" required>
                 【注意事項】
               </Label>
-              <ol className="mt-3 list-decimal ps-8 text-[15px] font-bold text-brown-950 flex flex-col gap-2">
+              <ol className="ps-5 mt-3 list-decimal text-15 font-bold text-brown-950 flex flex-col gap-1">
                 <li>
                   參加活動者請先詳細閱讀活動內容及本注意事項以維護自身權益。參加者於參加本活動並提供資料之同時，即視為已同意接受本活動之活動辦法及注意事項。
                 </li>
@@ -794,12 +859,12 @@ export default function SignUp() {
                 <li>
                   本活動因故無法進行時，主辦單位魅尚萱-活動小組有權決定取消、終止、修改或暫停本活動。
                 </li>
-                <span className="ms-[-26px]">
+                <span className="">
                   主辦單位魅尚萱保有最終修改、變更、活動解釋及取消本活動之權利，若有相關異動將會公告於品牌官方Facebook/Instagram，恕不另行通知。
                 </span>
               </ol>
               <InputField>
-                <div className="text-[23px] text-orange-600 font-bold">
+                <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
@@ -813,20 +878,19 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div className="flex justify-between items-center mb-14">
+            <div className="flex justify-between items-center mb-8">
               <Submit
                 type="button"
-                className="w-[232px] h-[64px] text-white text-[36px] font-bold tracking-widest"
+                className=" text-white text-36 font-bold tracking-widest"
                 onClick={fetchData}
               >
                 提交
               </Submit>
-              <div className="text-orange-600 text-[27px] tracking-wider font-bold">清除表單</div>
+              <div className="text-orange-600 text-29 tracking-wider font-bold">清除表單</div>
             </div>
           </form>
         </PaperBg>
-      </OrangeGridBg>
-      <Footer />
+      </div>
     </>
   );
 }
