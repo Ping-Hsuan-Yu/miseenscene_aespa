@@ -4,7 +4,7 @@ import Sec02Img2m from "../assets/img01-2-m.png";
 import Sec02Img3 from "../assets/img01-3.png";
 import Sec02Img4 from "../assets/img01-4.png";
 import Sec02Img4m from "../assets/img01-4-m.png";
-import Video from "../assets/0320_Horizontal_All_16X9_KR_NT.mp4";
+import Video from "../assets/0424_16x9_all_15s.mp4";
 import OrangeGridBg from "../components/OrangeGridBg";
 
 export default function Section2() {
@@ -47,7 +47,7 @@ export default function Section2() {
             <span className="text-white text-40">完美修護</span>
           </div>
           <div className="Sec02Video w-full max-w-[960px] h-auto z-10">
-            <video className="w-full h-full" autoPlay loop muted src={Video} />
+            <video className="w-full h-full" autoPlay loop muted controls webkit-playsinline src={Video} />
           </div>
         </div>
       </OrangeGridBg>

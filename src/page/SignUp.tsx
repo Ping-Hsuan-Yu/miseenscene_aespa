@@ -18,9 +18,9 @@ import S14 from "../assets/s14.png";
 import S15 from "../assets/s15.png";
 import CheckBox, { InputCheckBox } from "../components/CheckBox";
 import InputField from "../components/InputField";
-import InputText from "../components/InputText";
 import Label from "../components/Label";
 import LabelCaption from "../components/LabelCaption";
+import LabelInputText from "../components/LabelInputText";
 
 const PaperBg = styled.div`
   background-image: url(${Paper});
@@ -70,11 +70,29 @@ const Radio = styled.input`
   }
 `;
 
-const url =
-  "https://docs.google.com/forms/u/0/d/e/1FAIpQLScLW9Z5qgLyQaTWPpy9bdygbY1JNM2sNLtVAi4BKmRtodDvKA/formResponse";
-
 type DateValuePiece = Date | null;
 type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece];
+
+const initialInputValue = {
+  userName: "", //1. 您的真實姓名
+  group: "", //2. 您欲參加的組別
+  sex: "", //3. 您的性別
+  birthday: "", //4. 您的生日_年
+  phone: "", //5. 您的手機號碼
+  email: "", //6. 您的電子郵件
+  address: "", //7. 您的產品寄送地址（含郵遞區號）
+  ig: "", //8. 預計發文的Instagram社群平台連結
+  tiktok: "", //9. 預計發文的小紅書/tiktok帳號連結
+  teamName: "", //10. 參賽名稱
+  people: "", //12. 報名人數
+  teamMember: "", //13. 團體組組員姓名及Instagram帳號
+  brand: "", //14. 請問您認識以下哪些髮品品牌？
+  where: "", //15. 請問您是從哪裡得知這個活動的？
+  why: "", //16. 請問您為什麼想參加這個活動？
+  hair: "", //17. 您平常有護髮習慣嗎？
+  care: "", //18. 承上題，若有您平常使用什麼護髮產品？
+  agree: "", //agree
+};
 
 export default function SignUp() {
   const [birthday, setBirthday] = useState<DateValue>(new Date());
@@ -84,40 +102,84 @@ export default function SignUp() {
   const [why, setWhy] = useState<string[]>([]);
   const [otherCare, setOtherCare] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
-  const [inputValue, setInputValue] = useState({
-    "entry.855994970": "", //1. 您的真實姓名
-    "entry.1973978883": "", //2. 您欲參加的組別
-    "entry.1434542737": "", //3. 您的性別
-    "entry.399421725_year": "", //4. 您的生日_年
-    "entry.399421725_month": "", //4. 您的生日_月
-    "entry.399421725_day": "", //4. 您的生日_日
-    "entry.1892106210": "", //5. 您的手機號碼
-    "entry.388213980": "", //6. 您的電子郵件
-    "entry.913934699": "", //7. 您的產品寄送地址（含郵遞區號）
-    "entry.2000482615": "", //8. 預計發文的Instagram社群平台連結
-    "entry.1782465680": "", //9. 預計發文的小紅書/tiktok帳號連結
-    "entry.844234350": "", //10. 參賽名稱
-    "entry.953380031": "", //12. 報名人數
-    "entry.1939934942": "", //13. 團體組組員姓名及Instagram帳號
-    "entry.832590299": "", //14. 請問您認識以下哪些髮品品牌？
-    "entry.832590299.other_option_response": "",
-    "entry.1709870411": "", //15. 請問您是從哪裡得知這個活動的？
-    "entry.1709870411.other_option_response": "",
-    "entry.1958309499": "", //16. 請問您為什麼想參加這個活動？
-    "entry.1958309499.other_option_response": "",
-    "entry.1477264882": "", //17. 您平常有護髮習慣嗎？
-    "entry.2147255090": "", //18. 承上題，若有您平常使用什麼護髮產品？
-    "entry.1695036427": "", //agree
-  });
+  const [uploadImgUrl, setUploadImgUrl] = useState<string>("");
+  const [inputValue, setInputValue] = useState(initialInputValue);
+  const [onSubmit, setOnSubmit] = useState<boolean>(false);
 
-  const fetchData = useCallback(() => {
-    fetch(url, { method: "POST", body: JSON.stringify(inputValue), mode: "no-cors" })
-      .then((res) => {
-        console.log(inputValue);
-        console.log(res);
-      })
-      .catch((err) => console.error(err));
-  }, [inputValue]);
+  const handleInitial = () => {
+    setBirthday(null);
+    setOtherSex("");
+    setBrand([]);
+    setWhere([]);
+    setWhy([]);
+    setOtherCare("");
+    setFile(null);
+    setUploadImgUrl("");
+    setInputValue(initialInputValue);
+    setOnSubmit(false);
+  };
+
+  const handleSubmit = useCallback(() => {
+    setOnSubmit(true);
+    const apiLink =
+      "https://script.google.com/macros/s/AKfycbwOoEqUD9k7rUY0ekZNC2qkyz7-cxsTdyYW4kc0C6aU6Ygp2M10Wnvjq9xQJE_Q08Q8ag/exec";
+    const excludedKeys = ["tiktok", "teamMember"];
+    const isValid = Object.values(inputValue).every((value, index) => {
+      const key = Object.keys(inputValue)[index];
+      if (!excludedKeys.includes(key)) {
+        return value !== "";
+      } else {
+        return true;
+      }
+    });
+
+    if (isValid && file !== null) {
+      const timeStamp = new Date().toLocaleString();
+      const fileTimeStamp = timeStamp.replace(/[\/: ]/g, "_");
+      const obj = {
+        ...inputValue,
+        brand: `${inputValue.brand}${getOtherValue("brand-other")}`,
+        where: `${inputValue.where}${getOtherValue("where-other")}`,
+        why: `${inputValue.why}${getOtherValue("why-other")}`,
+        fileName: `${fileTimeStamp}_${file.name}`,
+        mimeType: file.type,
+        timeStamp: timeStamp,
+      };
+      const bytes = uploadImgUrl.split(",")[1];
+      const para = new URLSearchParams(obj);
+
+      fetch(`${apiLink}?${para}`, { method: "POST", body: JSON.stringify(bytes), mode: "no-cors" })
+        .then((response) => {
+          alert("報名成功");
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Network response was not ok.");
+          }
+        })
+        .then((data) => {
+          if (data.status === "success") {
+            console.log("Data added successfully:", data.message);
+          } else {
+            console.error("Error adding data:", data.message);
+          }
+        })
+        .catch((err) => console.log(err))
+        .finally(handleInitial);
+    }
+  }, [inputValue, file, uploadImgUrl]);
+
+  const getOtherValue = (name: string) => {
+    const checkbox = document.getElementById(name) as HTMLInputElement;
+    if (checkbox.checked) {
+      const textInput = document.querySelector(
+        `input[type=text][name=${name}]`
+      ) as HTMLInputElement;
+      return `,${textInput.value}`;
+    } else {
+      return "";
+    }
+  };
 
   const handleInputOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -140,29 +202,33 @@ export default function SignUp() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFile(e.target.files[0]);
+      const img = e.target.files[0];
+      setFile(img);
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setUploadImgUrl(fileReader.result as string);
+      };
+      fileReader.readAsDataURL(img);
     }
   };
 
   const handleOtherCheckBoxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.target.checked;
     const name = e.target.name;
-    if (!checked) {
-      setInputValue((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+    const value = e.target.value;
+    const inputText = document.getElementById(`${name}`) as HTMLInputElement;
+    if (value !== "") {
+      inputText.checked = true;
+    } else if (value === "") {
+      inputText.checked = false;
     }
   };
 
   useEffect(() => {
     if (birthday) {
-      const birthdayString = birthday.toLocaleString().split(" ")[0].split("/");
+      const birthdayString = birthday.toLocaleString().split(" ")[0];
       setInputValue((prev) => ({
         ...prev,
-        "entry.399421725_year": birthdayString[0],
-        "entry.399421725_month": birthdayString[1],
-        "entry.399421725_day": birthdayString[2],
+        birthday: birthdayString,
       }));
     }
   }, [birthday]);
@@ -170,58 +236,23 @@ export default function SignUp() {
   useEffect(() => {
     setInputValue((prev) => ({
       ...prev,
-      "entry.832590299": brand.join(","),
+      brand: brand.join(","),
     }));
   }, [brand]);
 
   useEffect(() => {
     setInputValue((prev) => ({
       ...prev,
-      "entry.1709870411": where.join(","),
+      where: where.join(","),
     }));
   }, [where]);
 
   useEffect(() => {
     setInputValue((prev) => ({
       ...prev,
-      "entry.1958309499": why.join(","),
+      why: why.join(","),
     }));
   }, [why]);
-
-  useEffect(() => {
-    console.log(inputValue);
-  }, [inputValue]);
-
-  const handleUpload = async () => {
-    if (file) {
-      console.log("Uploading file...");
-
-      const formData = new FormData();
-      formData.append("fileContent", file);
-      formData.append("fileName", "test");
-
-      try {
-        // You can write the URL of your server or any other endpoint used for file upload
-        const result = await fetch(
-          "https://script.google.com/macros/s/AKfycbyVDVSYkapjfB5r1trQlD4lwLRrsJlYua6LVlrNRte0Knif4f6Acwiqf9aAL-YH0HnQ/exec",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-            },
-            body: formData,
-          }
-        );
-
-        const data = await result.json();
-
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
 
   return (
     <>
@@ -300,29 +331,32 @@ export default function SignUp() {
         <PaperBg className="max-w-screen-xl ps-6 pe-4 pt-8 md:ps-16 md:pe-14 md:pt-16 lg:ps-20 xl:pe-16 ">
           <form className="flex flex-col gap-7">
             <div className="text-red text-22 font-bold">* 表示必填問題</div>
-            <div className="flex flex-col">
-              <Label htmlFor="userName" required>
-                1. 您的真實姓名
-              </Label>
+            <LabelInputText
+              label="1. 您的真實姓名"
+              name="userName"
+              required
+              value={inputValue.userName}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>*若有資料不完整/有誤/重複報名等情事，將自動視同放棄</LabelCaption>
-              <InputText
-                id="userName"
-                name="entry.855994970"
-                value={inputValue["entry.855994970"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
+              {onSubmit && inputValue.userName === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
             <div className="flex flex-col">
               <Label htmlFor="group" required>
                 2. 您欲參加的組別
               </Label>
               <LabelCaption>*為確保參加者之權益，每人於各組別限報名及領取獎項1次</LabelCaption>
+              {onSubmit && inputValue.group === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1973978883"
+                      name="group"
                       id="person"
                       value="個人組"
                       onChange={handleInputOnChange}
@@ -332,7 +366,7 @@ export default function SignUp() {
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1973978883"
+                      name="group"
                       id="team"
                       value="團體組"
                       onChange={handleInputOnChange}
@@ -346,12 +380,15 @@ export default function SignUp() {
               <Label htmlFor="sex" required>
                 3. 您的性別
               </Label>
+              {onSubmit && inputValue.sex === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1434542737"
+                      name="sex"
                       id="female"
                       value="女性"
                       onChange={handleInputOnChange}
@@ -361,7 +398,7 @@ export default function SignUp() {
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1434542737"
+                      name="sex"
                       id="male"
                       value="男性"
                       onChange={handleInputOnChange}
@@ -372,7 +409,7 @@ export default function SignUp() {
                     <div>
                       <Radio
                         type="radio"
-                        name="entry.1434542737"
+                        name="sex"
                         id="other-sex"
                         value={otherSex}
                         onChange={handleInputOnChange}
@@ -384,13 +421,10 @@ export default function SignUp() {
                     <input
                       className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
-                      name="entry.1434542737"
+                      name="sex"
                       value={otherSex}
                       onChange={(event) => {
-                        if (
-                          inputValue["entry.1434542737"] !== "女性" &&
-                          inputValue["entry.1434542737"] !== "男性"
-                        ) {
+                        if (inputValue.sex !== "女性" && inputValue.sex !== "男性") {
                           handleInputOnChange(event);
                         }
                         setOtherSex(event.target.value);
@@ -408,6 +442,7 @@ export default function SignUp() {
                 <DatePicker
                   value={birthday}
                   onChange={setBirthday}
+                  maxDate={new Date()}
                   calendarIcon={null}
                   clearIcon={null}
                   required
@@ -415,35 +450,38 @@ export default function SignUp() {
                 />
               </InputField>
             </div>
-            <div className="flex flex-col">
-              <Label htmlFor="phone" required>
-                5. 您的手機號碼
-              </Label>
-              <InputText
-                id="phone"
-                name="entry.1892106210"
-                value={inputValue["entry.1892106210"]}
-                onChange={handleInputOnChange}
-              />
-            </div>{" "}
-            <div className="flex flex-col">
-              <Label htmlFor="email" required>
-                6. 您的電子郵件
-              </Label>
+            <LabelInputText
+              label="5. 您的手機號碼"
+              name="phone"
+              required
+              value={inputValue.phone}
+              onChange={handleInputOnChange}
+            >
+              {onSubmit && inputValue.phone === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+            <LabelInputText
+              label="6. 您的電子郵件"
+              name="email"
+              required
+              value={inputValue.email}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
                 *作為後續聯繫使用，若有資料不完整/有誤導致無法聯繫的情況，將自動視同放棄
               </LabelCaption>
-              <InputText
-                id="email"
-                name="entry.388213980"
-                value={inputValue["entry.388213980"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <Label htmlFor="address" required>
-                7. 您的產品寄送地址（含郵遞區號）
-              </Label>
+              {onSubmit && inputValue.email === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+            <LabelInputText
+              label="7. 您的產品寄送地址(含郵遞區號)"
+              name="address"
+              required
+              value={inputValue.address}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
                 Ex:110 台北市信義區信義路五段7號
                 <br />
@@ -455,17 +493,18 @@ export default function SignUp() {
                   拍攝時所有產品皆須入鏡但以#魅尚萱小橘瓶 為主呈現
                 </UnderLineCaption>
               </LabelCaption>
-              <InputText
-                id="address"
-                name="entry.913934699"
-                value={inputValue["entry.913934699"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <Label htmlFor="ig" required>
-                8. 預計發文的Instagram社群平台連結
-              </Label>
+              {onSubmit && inputValue.address === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+
+            <LabelInputText
+              label="8. 預計發文的Instagram社群平台連結"
+              name="ig"
+              required
+              value={inputValue.ig}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
                 EX:instagram.com/miseenscenetw/
                 <br />
@@ -473,45 +512,41 @@ export default function SignUp() {
                 <br />
                 *團體組請填一名代表人帳號為發布影片者，最終認列評分以此帳號發布之影片讚數&影片內容加權分數計算為準
               </LabelCaption>
-              <InputText
-                id="ig"
-                name="entry.2000482615"
-                value={inputValue["entry.2000482615"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <Label htmlFor="tiktok">9. 預計發文的小紅書 / tiktok帳號連結</Label>
+              {onSubmit && inputValue.ig === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+            <LabelInputText
+              label="9. 預計發文的小紅書 / tiktok帳號連結"
+              name="tiktok"
+              value={inputValue.tiktok}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
-                Ex:tiktok.com/@miseenscenetw
-                <br />
-                *此為非必要之額外加權項目
+                EX:tiktok.com/@miseenscenetw
                 <br />
                 *會依此留存的帳號作為後續評分追蹤依據，若欲更改需私訊官方社群告知
+                <br />
+                *團體組請填一名代表人帳號為發布影片者，最終認列評分以此帳號發布之影片讚數&影片內容加權分數計算為準
               </LabelCaption>
-              <InputText
-                id="tiktok"
-                name="entry.1782465680"
-                value={inputValue["entry.1782465680"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <Label htmlFor="teamName" required>
-                10. 參賽名稱
-              </Label>
+            </LabelInputText>
+            <LabelInputText
+              label="10. 參賽名稱"
+              name="teamName"
+              required
+              value={inputValue.teamName}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
                 *顯示於參賽隊伍頁面，個人組請填寫綽號，團體組請填寫隊伍名稱
                 <br />
                 *內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
-              <InputText
-                id="teamName"
-                name="entry.844234350"
-                value={inputValue["entry.844234350"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
+              {onSubmit && inputValue.teamName === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+
             <div className="flex flex-col">
               <Label htmlFor="photo" required>
                 11. 參賽證照片上傳
@@ -519,44 +554,50 @@ export default function SignUp() {
               <LabelCaption>
                 *顯示於參賽隊伍頁面，內容若涉及不雅、暴力、色情等，主辦單位有權取消其參賽資格
               </LabelCaption>
+              {onSubmit && file === null && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <input
                   type="file"
                   onChange={handleFileChange}
                   className="w-full text-23px text-orange-600 font-bold bg-orange-100 outline-none"
                 />
+                <img className="mt-1 max-w-[150px]" src={uploadImgUrl} alt="" />
               </InputField>
             </div>
-            <div className="flex flex-col">
-              <Label htmlFor="people" required>
-                12. 報名人數
-              </Label>
+            <LabelInputText
+              label="12. 報名人數"
+              name="people"
+              required
+              value={inputValue.people}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>*請填寫阿拉伯數字，若報名個人組請填1</LabelCaption>
-              <InputText
-                id="people"
-                name="entry.953380031"
-                value={inputValue["entry.953380031"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <Label htmlFor="teamMember">13. 團體組組員姓名及Instagram帳號</Label>
+              {onSubmit && inputValue.people === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+            <LabelInputText
+              label="13. 團體組組員姓名及Instagram帳號"
+              name="teamMember"
+              value={inputValue.teamMember}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>
                 填寫方式請依照下方格式填寫：
                 <br />
                 Ex:魅小萱:instagram.com/miseenscenetw/
               </LabelCaption>
-              <InputText
-                id="teamMember"
-                name="entry.1939934942"
-                value={inputValue["entry.1939934942"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
+            </LabelInputText>
+
             <div className="flex flex-col">
               <Label htmlFor="brand" required>
                 14. 請問您認識以下哪些髮品品牌？
               </Label>
+              {onSubmit && inputValue.brand === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
@@ -610,23 +651,16 @@ export default function SignUp() {
                   />
                   <div className="flex items-center gap-2">
                     <div>
-                      <InputCheckBox
-                        type="checkbox"
-                        name="entry.832590299.other_option_response"
-                        id="other-brand"
-                        onChange={handleOtherCheckBoxOnChange}
-                        checked={inputValue["entry.832590299.other_option_response"] !== ""}
-                      />
+                      <InputCheckBox type="checkbox" name="brand-other" id="brand-other" />
                     </div>
-                    <label className="text-nowrap" htmlFor="other-brand">
+                    <label className="text-nowrap" htmlFor="brand-other">
                       其他：
                     </label>
                     <input
                       className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
-                      name="entry.832590299.other_option_response"
-                      value={inputValue["entry.832590299.other_option_response"]}
-                      onChange={handleInputOnChange}
+                      name="brand-other"
+                      onChange={handleOtherCheckBoxOnChange}
                     />
                   </div>
                 </div>
@@ -636,6 +670,9 @@ export default function SignUp() {
               <Label htmlFor="where" required>
                 15. 請問您是從哪裡得知這個活動的？
               </Label>
+              {onSubmit && inputValue.where === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
@@ -661,13 +698,7 @@ export default function SignUp() {
                   />
                   <div className="flex items-center gap-2">
                     <div>
-                      <InputCheckBox
-                        type="checkbox"
-                        name="entry.1709870411.other_option_response"
-                        id="where-other"
-                        onChange={handleOtherCheckBoxOnChange}
-                        checked={inputValue["entry.1709870411.other_option_response"] !== ""}
-                      />
+                      <InputCheckBox type="checkbox" name="where-other" id="where-other" />
                     </div>
                     <label className="text-nowrap" htmlFor="where-other">
                       其他：
@@ -675,9 +706,8 @@ export default function SignUp() {
                     <input
                       className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
-                      name="entry.1709870411.other_option_response"
-                      value={inputValue["entry.1709870411.other_option_response"]}
-                      onChange={handleInputOnChange}
+                      name="where-other"
+                      onChange={handleOtherCheckBoxOnChange}
                     />
                   </div>
                 </div>
@@ -687,6 +717,9 @@ export default function SignUp() {
               <Label htmlFor="why" required>
                 16. 請問您為什麼想參加這個活動？
               </Label>
+              {onSubmit && inputValue.why === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <CheckBox
@@ -712,13 +745,7 @@ export default function SignUp() {
                   />
                   <div className="flex items-center gap-2">
                     <div>
-                      <InputCheckBox
-                        type="checkbox"
-                        name="entry.1958309499.other_option_response"
-                        id="why-other"
-                        onChange={handleOtherCheckBoxOnChange}
-                        checked={inputValue["entry.1958309499.other_option_response"] !== ""}
-                      />
+                      <InputCheckBox type="checkbox" name="why-other" id="why-other" />
                     </div>
                     <label className="text-nowrap" htmlFor="why-other">
                       其他：
@@ -726,9 +753,8 @@ export default function SignUp() {
                     <input
                       className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
-                      name="entry.1958309499.other_option_response"
-                      value={inputValue["entry.1958309499.other_option_response"]}
-                      onChange={handleInputOnChange}
+                      name="why-other"
+                      onChange={handleOtherCheckBoxOnChange}
                     />
                   </div>
                 </div>
@@ -738,12 +764,15 @@ export default function SignUp() {
               <Label htmlFor="hair" required>
                 17. 您平常有護髮習慣嗎？
               </Label>
+              {onSubmit && inputValue.hair === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1477264882"
+                      name="hair"
                       id="有"
                       value="有"
                       onChange={handleInputOnChange}
@@ -753,7 +782,7 @@ export default function SignUp() {
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1477264882"
+                      name="hair"
                       id="偶爾"
                       value="偶爾"
                       onChange={handleInputOnChange}
@@ -763,7 +792,7 @@ export default function SignUp() {
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1477264882"
+                      name="hair"
                       id="不護髮"
                       value="不護髮"
                       onChange={handleInputOnChange}
@@ -774,7 +803,7 @@ export default function SignUp() {
                     <div>
                       <Radio
                         type="radio"
-                        name="entry.1477264882"
+                        name="hair"
                         id="hair-other"
                         value={otherCare}
                         onChange={handleInputOnChange}
@@ -786,12 +815,13 @@ export default function SignUp() {
                     <input
                       className="w-full text-23 text-orange-600 font-bold bg-orange-100 outline-none border-b"
                       type="text"
+                      name="hair"
                       value={otherCare}
                       onChange={(event) => {
                         if (
-                          inputValue["entry.1477264882"] !== "有" &&
-                          inputValue["entry.1477264882"] !== "偶爾" &&
-                          inputValue["entry.1477264882"] !== "不護髮"
+                          inputValue.hair !== "有" &&
+                          inputValue.hair !== "偶爾" &&
+                          inputValue.hair !== "不護髮"
                         ) {
                           handleInputOnChange(event);
                         }
@@ -802,19 +832,19 @@ export default function SignUp() {
                 </div>
               </InputField>
             </div>
-            <div className="flex flex-col">
-              <Label htmlFor="care" required>
-                18. 承上題，若有您平常使用什麼護髮產品？
-              </Label>
+            <LabelInputText
+              label="18. 承上題，若有您平常使用什麼護髮產品？"
+              name="care"
+              required
+              value={inputValue.care}
+              onChange={handleInputOnChange}
+            >
               <LabelCaption>*若不護髮則填無</LabelCaption>
-              <InputText
-                id="care"
-                name="entry.2147255090"
-                value={inputValue["entry.2147255090"]}
-                onChange={handleInputOnChange}
-              />
-            </div>
-            <div className="">
+              {onSubmit && inputValue.care === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
+            </LabelInputText>
+            <div>
               <Label htmlFor="" required>
                 【注意事項】
               </Label>
@@ -863,12 +893,15 @@ export default function SignUp() {
                   主辦單位魅尚萱保有最終修改、變更、活動解釋及取消本活動之權利，若有相關異動將會公告於品牌官方Facebook/Instagram，恕不另行通知。
                 </span>
               </ol>
+              {onSubmit && inputValue.agree === "" && (
+                <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
+              )}
               <InputField>
                 <div className="text-23 text-orange-600 font-bold">
                   <div className="flex items-center gap-2">
                     <Radio
                       type="radio"
-                      name="entry.1695036427"
+                      name="agree"
                       id="agree"
                       value="我同意"
                       onChange={handleInputOnChange}
@@ -882,11 +915,11 @@ export default function SignUp() {
               <Submit
                 type="button"
                 className=" text-white text-36 font-bold tracking-widest"
-                onClick={fetchData}
+                onClick={handleSubmit}
               >
                 提交
               </Submit>
-              <div className="text-orange-600 text-29 tracking-wider font-bold">清除表單</div>
+              <div onClick={handleInitial} className="text-orange-600 text-29 tracking-wider font-bold">清除表單</div>
             </div>
           </form>
         </PaperBg>

@@ -100,14 +100,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               <li>影片長度以30秒至2分鐘為限。</li>
               <li>如報名資料不齊全或投稿之舞蹈影片不合規定，則視為報名無效。</li>
               <li>為確保參加者之權益，每人限報名及領取獎項1次</li>
-              <li>
-                報名成功者個人組提供拍攝產品完美修護護髮精油1瓶，團體組提供拍攝產品完美修護、
-                <br />
-                滋養、造型、水潤護髮精油各1瓶，
-                <span className="text-orange-600">
-                  拍攝時所有產品皆須入鏡但以 #魅尚萱小橘瓶 為主呈現
-                </span>
-              </li>
+              <li>報名成功者拍攝道具將由主辦單位提供，詳細內容可至報名表單中確認。</li>
             </ol>
           </div>
           <div>
@@ -135,7 +128,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <video className="w-[574px]" autoPlay loop muted src={Video} />
+              <video className="w-[574px]" autoPlay loop muted webkit-playsinline src={Video} />
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
@@ -185,7 +178,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <video className="w-[574px]" autoPlay loop muted src={Video} />
+              <video className="w-[574px]" autoPlay loop muted webkit-playsinline src={Video} />
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
