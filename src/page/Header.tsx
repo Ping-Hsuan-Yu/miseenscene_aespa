@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import IgLogo from "../assets/instagram-white-icon.svg";
 import Logo from "../assets/logo.png";
@@ -18,12 +18,13 @@ export default function Header(props: {
   ref3: React.MutableRefObject<HTMLElement | null>;
   ref4: React.MutableRefObject<HTMLElement | null>;
   ref5: React.MutableRefObject<HTMLElement | null>;
+  signUp?: boolean
 }) {
   const [isScrolled, setScrolled] = useState(false);
   const [menuShow, setMenuShow] = useState(false);
 
   const handleScroll = () => {
-    if (document.documentElement.scrollTop > 250) {
+    if (document.documentElement.scrollTop > 500) {
       setScrolled(true);
     } else {
       setScrolled(false);
@@ -38,9 +39,19 @@ export default function Header(props: {
   }, []);
 
   const handleLinkOnClick = (ref: React.MutableRefObject<HTMLElement | null>) => {
-    ref.current?.scrollIntoView({
-      behavior: "smooth",
-    });
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    } else {
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      }, 300);
+    }
   };
 
   const handleMenuOnclick = () => {
@@ -55,9 +66,18 @@ export default function Header(props: {
         } bg-orange-600 flex sticky top-0 z-20 transition-all`}
       >
         <div className="flex justify-between items-center w-full max-w-screen-xl m-auto">
-          <div>
+          <Link
+            to="/miseenscene_aespa"
+            className="cursor-pointer"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }}
+          >
             <img className="object-contain w-full max-w-[400px]" src={Logo} />
-          </div>
+          </Link>
           <Nav className="hidden lg:flex items-center justify-center text-white text-22 tracking-widest font-bold text-nowrap">
             <Link
               to="/miseenscene_aespa"
@@ -104,13 +124,7 @@ export default function Header(props: {
             >
               官方社群
             </Link>
-            <Link
-              to="/miseenscene_aespa/sign-up"
-              className="cursor-pointer"
-              onClick={() => {
-                scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
+            <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
               <img
                 className="object-contain w-full max-w-[138px] min-w-28"
                 src={SignUp}
@@ -128,6 +142,11 @@ export default function Header(props: {
           </div>
         </div>
       </header>
+      {!menuShow && !props.signUp && <div className={`lg:hidden fixed z-20 right-4 bottom-8`}>
+        <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
+          <img className="object-contain min-w-28" src={SignUp} alt="我要報名" />
+        </Link>
+      </div>}
       <div
         className={`lg:hidden fixed z-20 transition-all ${menuShow ? "right-0" : "right-[-170px]"}`}
       >
@@ -183,24 +202,14 @@ export default function Header(props: {
             >
               官方社群
             </Link>
-            <Link
-              to="/miseenscene_aespa/sign-up"
-              className="cursor-pointer"
-              onClick={() => {
-                scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              <img
-                className="object-contain w-[100px] min-w-28"
-                src={SignUp}
-                alt="我要報名"
-              />
-            </Link>
             <div className="cursor-pointer">
               <Link to="https://www.instagram.com/miseenscenetw/" target="_blank">
                 <img className="object-contain w-[30px]" src={IgLogo} />
               </Link>
             </div>
+            <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
+              <img className="object-contain w-[100px] min-w-28" src={SignUp} alt="我要報名" />
+            </Link>
           </nav>
         </div>
       </div>

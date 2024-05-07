@@ -31,10 +31,13 @@ export default function App(props: { signUp?: boolean }) {
         ref3={section3Ref}
         ref4={section4Ref}
         ref5={section5Ref}
+        signUp={props.signUp}
       />
       <div className="flex flex-col items-center">
         <main className="max-w-screen-xl flex flex-col">
-          <section className="flex justify-center">
+          <section
+            className={props.signUp ? "flex lg:hidden justify-center" : "flex justify-center"}
+          >
             <img className="object-contain w-full" src={Kv} />
           </section>
           {props.signUp ? (

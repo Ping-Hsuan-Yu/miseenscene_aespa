@@ -43,10 +43,59 @@ const Container = styled.div`
   width: calc(100vw - 32px);
   max-width: 1248px;
 `;
+
+const Arrow = styled.div`
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform-origin: 50% 50%;
+  transform: translate3d(-50%, -50%, 0);
+  animation-name: arrow-movement;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  &.next {
+    animation-delay: 1s;
+  }
+  &:before,
+  &:after {
+    background: #fff;
+    content: "";
+    display: block;
+    height: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+  }
+  &:before {
+    transform: rotate(45deg) translateX(-6px);
+    transform-origin: top center;
+  }
+
+  &:after {
+    transform: rotate(-45deg) translateX(-8px);
+    transform-origin: top center;
+  }
+  @keyframes arrow-movement {
+    0% {
+      opacity: 0;
+      right: 10px;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+`;
+
 export default function Card() {
   return (
     <div className="flex flex-col gap-5 md:gap-10 my-5 md:my-10">
-      <Container>
+      <Container className="relative">
         <Swiper
           breakpoints={{
             640: {
@@ -80,23 +129,29 @@ export default function Card() {
                       </div>
                       <div className="text-center ms-3 w-[110px]">
                         <div className="text-brown-300 font-medium text-xs">GROUP</div>
-                        <div className="text-brown-800 font-bold border-b border-brown-300">
+                        <div className="text-nowrap overflow-hidden text-brown-800 font-bold border-b border-brown-300">
                           {info.group}
                         </div>
                         <div className="text-brown-300 font-medium text-xs mt-4">NAME</div>
-                        <div className="text-brown-800 font-bold  border-b border-brown-300">
+                        <div className="text-nowrap overflow-hidden text-brown-800 font-bold border-b border-brown-300">
                           {info.name}
                         </div>
                       </div>
                     </div>
-                    <div className="text-brown-800 text-xs font-bold mt-5 ms-7">@{info.ig}</div>
+                    <div className="text-nowrap overflow-hidden text-brown-800 text-xs font-bold mt-5 ms-7">
+                      @{info.ig}
+                    </div>
                   </CardBG>
                 </SwiperSlide>
               )
           )}
         </Swiper>
+        <div className="absolute right-4 md:bottom-[-24px] md:top-full top-1/2 z-[15]">
+          <Arrow className="prev" />
+          <Arrow className="next" />
+        </div>
       </Container>
-      <Container>
+      <Container className="relative">
         <Swiper
           breakpoints={{
             640: {
@@ -131,12 +186,12 @@ export default function Card() {
                       </div>
                       <div className="text-center ms-3 w-[110px]">
                         <div className="text-brown-300 font-medium text-xs">GROUP</div>
-                        <div className="text-brown-800 font-bold border-b border-brown-300">
+                        <div className="text-nowrap text-brown-800 font-bold border-b border-brown-300">
                           {info.group}
                         </div>
                         <div className="text-brown-300 font-medium text-xs mt-ˇ">NAME</div>
-                        <div className="text-brown-800 font-bold">{info.name}</div>
-                        <div className="text-brown-800 font-bold text-xs border-b border-brown-300">
+                        <div className="text-nowrap text-brown-800 font-bold">{info.name}</div>
+                        <div className="text-nowrap text-brown-800 font-bold text-xs border-b border-brown-300">
                           {info.member}
                         </div>
                       </div>
@@ -147,9 +202,11 @@ export default function Card() {
               )
           )}
         </Swiper>
+        <div className="absolute right-4 md:bottom-[-24px] md:top-full top-1/2 z-[15]">
+          <Arrow className="prev" />
+          <Arrow className="next" />
+        </div>
       </Container>
     </div>
-
-    
   );
 }

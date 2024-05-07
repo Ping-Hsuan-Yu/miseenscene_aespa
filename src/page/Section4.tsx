@@ -5,6 +5,7 @@ import timelineImg from "../assets/img03-2.png";
 import timelineImgM from "../assets/img03-2-m.png";
 import Video from "../assets/0320_Horizontal_All_16X9_KR_NT.mp4";
 import styled from "styled-components";
+import { useRef } from "react";
 
 const Title = (props: { text: string }) => (
   <div className="relative">
@@ -58,11 +59,11 @@ const Dance = styled.img`
 
 export default function Section4(props: { ref3: React.MutableRefObject<HTMLElement | null> }) {
   return (
-    <section className="flex justify-center my-8 lg:my-16 px-4 lg:px-8 ref" ref={props.ref3}>
+    <section className="flex justify-center my-8 lg:my-16 px-4 lg:px-8 ref"  ref={props.ref3}>
       <Bg className="font-bold text-brown-800 text md:text-lg leading-relaxed px-4 pt-8 pb-6">
         <div className="relative w-full">
           <Dot src={dot} className="absolute w-[6.8%] max-w-[73px] right-[46.5%]" />
-          <Dance src={dance} className="absolute w-[36.2%] max-w-[387px] right-[-3%] " />
+          <Dance src={dance} className="absolute w-[36.2%] max-w-[387px] right-[-3%]" />
         </div>
         <Paper className="flex flex-col gap-10">
           <div>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";
 import Paper from "../assets/paper.png";
@@ -105,6 +105,7 @@ export default function SignUp() {
   const [uploadImgUrl, setUploadImgUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState(initialInputValue);
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
+  const ref = useRef<HTMLElement>(null);
 
   const handleInitial = () => {
     setBirthday(null);
@@ -254,9 +255,18 @@ export default function SignUp() {
     }));
   }, [why]);
 
+  useEffect(() => {
+    if (ref.current) {
+      window.scrollTo({
+        top: ref.current.offsetTop - 100,
+        behavior: "smooth",
+      });
+    }
+  }, [ref.current]);
+
   return (
     <>
-      <div className="w-full px-2 pt-6 md:px-20 md:pt-24">
+      <section className="w-full px-2 pt-6 md:px-20 md:pt-24 ref" ref={ref}>
         <div className="relative w-full">
           <img
             src={S02}
@@ -919,11 +929,16 @@ export default function SignUp() {
               >
                 提交
               </Submit>
-              <div onClick={handleInitial} className="text-orange-600 text-29 tracking-wider font-bold">清除表單</div>
+              <div
+                onClick={handleInitial}
+                className="text-orange-600 text-29 tracking-wider font-bold"
+              >
+                清除表單
+              </div>
             </div>
           </form>
         </PaperBg>
-      </div>
+      </section>
     </>
   );
 }
