@@ -3,9 +3,8 @@ import dance from "../assets/img03-1_02.png";
 import paper from "../assets/img03-1_03.png";
 import timelineImg from "../assets/img03-2.png";
 import timelineImgM from "../assets/img03-2-m.png";
-import Video from "../assets/0320_Horizontal_All_16X9_KR_NT.mp4";
+import Gif from "../assets/0508_Horizontal_All_16X9_KR_NT.gif";
 import styled from "styled-components";
-import { useRef } from "react";
 
 const Title = (props: { text: string }) => (
   <div className="relative">
@@ -129,7 +128,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <video className="w-[574px]" autoPlay loop muted webkit-playsinline src={Video} />
+              <img className="w-[574px]" src={Gif}/>
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
@@ -179,7 +178,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <video className="w-[574px]" autoPlay loop muted webkit-playsinline src={Video} />
+              <img className="w-[574px] " src={Gif}/>
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>

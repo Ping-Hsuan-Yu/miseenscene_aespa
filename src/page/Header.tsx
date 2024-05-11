@@ -1,10 +1,10 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import IgLogo from "../assets/instagram-white-icon.svg";
 import Logo from "../assets/logo.png";
-import SignUp from "../assets/signup.png";
 import MenuIcon from "../assets/menu.png";
-import { useEffect, useState } from "react";
+import SignUp from "../assets/signup.png";
 
 const Nav = styled.nav`
   & a:not(:last-of-type)::after {
