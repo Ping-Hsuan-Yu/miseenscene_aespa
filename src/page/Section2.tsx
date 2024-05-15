@@ -47,9 +47,7 @@ export default function Section2() {
             <span className="text-white text-40">完美修護</span>
           </div>
           <div className="Sec02Video w-full max-w-[960px] h-auto z-10">
-            <video className="w-full h-full" autoPlay loop muted webkit-playsinline src={Video} onClick={(e)=>{
-              e.preventDefault()
-            }}/>
+            <video className="w-full h-full" loop controls muted playsInline autoPlay src={Video}/>
           </div>
         </div>
       </OrangeGridBg>

@@ -5,6 +5,7 @@ import IgLogo from "../assets/instagram-white-icon.svg";
 import Logo from "../assets/logo.png";
 import MenuIcon from "../assets/menu.png";
 import SignUp from "../assets/signup.png";
+import SignUpM from "../assets/signup-m.png";
 
 const Nav = styled.nav`
   & a:not(:last-of-type)::after {
@@ -144,7 +145,7 @@ export default function Header(props: {
       </header>
       {!menuShow && !props.signUp && <div className={`lg:hidden fixed z-20 right-4 bottom-8`}>
         <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
-          <img className="object-contain min-w-28" src={SignUp} alt="我要報名" />
+          <img className="object-contain max-w-24" src={SignUpM} alt="我要報名" />
         </Link>
       </div>}
       <div

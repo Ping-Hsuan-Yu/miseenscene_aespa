@@ -3,7 +3,8 @@ import dance from "../assets/img03-1_02.png";
 import paper from "../assets/img03-1_03.png";
 import timelineImg from "../assets/img03-2.png";
 import timelineImgM from "../assets/img03-2-m.png";
-import Gif from "../assets/0508_Horizontal_All_16X9_KR_NT.gif";
+import Gif1 from "../assets/05062.gif";
+import Gif2 from "../assets/0508_Horizontal_All_16X9_KR_NT.gif";
 import styled from "styled-components";
 
 const Title = (props: { text: string }) => (
@@ -92,9 +93,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             <Title text="活動方式" />
             <ol className="mt-2.5 list-decimal ps-6">
               <li>
-                Cover 魅尚萱全新代言人aespa之舞蹈，並使用 #魅尚萱小橘瓶 完美修護護髮精油，
-                <br />
-                結合指定創意內容拍攝影片（請詳閱各參賽組別之評分規則）。
+                Cover 魅尚萱全新代言人aespa之舞蹈，並使用 #魅尚萱小橘瓶 完美修護護髮精油，結合指定創意內容拍攝影片（請詳閱各參賽組別之評分規則）。
               </li>
               <li>影片請上傳至公開之Instagram帳號，並於報名時一同提供連結。</li>
               <li>影片長度以30秒至2分鐘為限。</li>
@@ -121,37 +120,25 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             </div>
             <div className="mt-1 ">
               影片中<span className="text-orange-600">使用 #魅尚萱小橘瓶 完美修護護髮精油</span>
-              擦拭髮尾，呈現秀髮柔順光澤的形象
-              <br />
-              （以撥髮、甩髮方式呈現，可參考代言人形象影片內容），並說出或以字幕呈現：
-              <br />
-              「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
+              擦拭髮尾，呈現秀髮柔順光澤的形象(以撥髮、甩髮方式呈現，可參考代言人形象影片內容)，並說出或以字幕呈現：「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <img className="w-[574px]" src={Gif}/>
+              <img className="w-[574px]" src={Gif1}/>
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
-                貼文文案中須帶到「完美終結稻草髮，7種植萃精油24H完美修護」
-                <br />
-                及簡易的產品使用心得：+10分
+                貼文文案中須帶到「完美終結稻草髮，7種植萃精油24H完美修護」及簡易的產品使用心得：+10分
               </li>
               <li>
                 文末標記指定hashtag：+10分
                 <br />
                 <span className="text-orange-600">
                   #魅尚萱 #kpop舞蹈大賽 #我的頭髮會跳舞 #魅尚萱護髮精油 #魅尚萱小橘瓶
-                  #完美終結稻草髮
-                  <br />
-                  #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
-                  <br />
-                </span>
-                並在文中 @miseenscenetw
+                  #完美終結稻草髮 #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
+                </span> 並在文中 @miseenscenetw
               </li>
               <li>
-                影片中拍攝到販售通路（ex：於屈臣氏門市門口進行拍攝或融入購買情境，需拍到通路LOGO）
-                <br />
-                並在文中標註屈臣氏IG帳號@watsonstaiwan：+10分
+                影片中拍攝到販售通路(ex：於屈臣氏門市門口進行拍攝或融入購買情境，需拍到通路LOGO) 並在文中標註屈臣氏IG帳號@watsonstaiwan：+10分
               </li>
               <li>若多發布於小紅書/tiktok等平台，每一平台額外加權：+5分（此項目最多+10分）</li>
             </ol>
@@ -161,9 +148,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             <ol className="mt-1 list-decimal ps-6">
               <li>影片中使用完美修護護髮精油及完成指定創意內容：+50分</li>
               <li>
-                完成團體組指定項目內容：依照創意執行內容及與產品結合的相關性，
-                <br />
-                進行共50分的分數加權，創意執行以魅尚萱內部評審團為主
+                完成團體組指定項目內容：依照創意執行內容及與產品結合的相關性，進行共50分的分數加權，創意執行以魅尚萱內部評審團為主
               </li>
             </ol>
             <div className="mt-6 text-white text-lg md:text-[22px]">
@@ -171,36 +156,26 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             </div>
             <div className="mt-1 ">
               舞蹈中結合使用<span className="text-orange-600"> #魅尚萱小橘瓶 完美修護護髮精油</span>
-              的創意內容發展，呈現秀髮柔順光澤的形象為主
-              <br />
-              （以撥髮、甩髮或其他創意形式呈現，亦可參考代言人官方影片內容），影片中需說出或以字幕呈現
-              <br />
+              的創意內容發展，呈現秀髮柔順光澤的形象為主(以撥髮、甩髮或其他創意形式呈現，亦可參考代言人官方影片內容)，影片中需說出或以字幕呈現
               「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <img className="w-[574px] " src={Gif}/>
+              <img className="w-[574px] " src={Gif2}/>
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
-                貼文文案中須帶到「完美終結稻草髮，7種植萃精油24H完美修護」
-                <br />
-                及簡易的產品使用心得：+10分
+                貼文文案中須帶到「完美終結稻草髮，7種植萃精油24H完美修護」及簡易的產品使用心得：+10分
               </li>
               <li>
                 文末標記指定hashtag：+10分
                 <br />
                 <span className="text-orange-600">
                   #魅尚萱 #kpop舞蹈大賽 #我的頭髮會跳舞 #魅尚萱護髮精油 #魅尚萱小橘瓶
-                  #完美終結稻草髮
-                  <br />
-                  #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
-                  <br />
-                </span>
-                並在文中 @miseenscenetw
+                  #完美終結稻草髮 #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
+                </span> 並在文中 @miseenscenetw
               </li>
               <li>
-                影片中拍攝到販售通路（ex：於屈臣氏門市門口進行拍攝或融入購買情境，需拍到通路LOGO）
-                <br />
+                影片中拍攝到販售通路(ex：於屈臣氏門市門口進行拍攝或融入購買情境，需拍到通路LOGO)
                 並在文中標註屈臣氏IG帳號@watsonstaiwan：+10分
               </li>
               <li>若多發布於小紅書/tiktok等平台，每一平台額外加權：+5分（此項目最多+10分）</li>
@@ -213,6 +188,8 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
               <img className="w-full md:hidden" src={timelineImgM} alt="" />
             </div>
             <div>*活動贈品將於名次公告後陸續安排寄送</div>
+            <div>*名次將公告於本活動官網及魅尚萱官方粉絲專頁</div>
+            
           </div>
           <div>
             <Title text="活動獎項" />

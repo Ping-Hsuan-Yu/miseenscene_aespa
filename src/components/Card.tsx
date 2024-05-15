@@ -8,11 +8,17 @@ import { FreeMode } from "swiper/modules";
 
 const cardInfo = [
   { img: Sample, group: "個人組", name: "小喵", member: "", ig: "_ri__na____" },
-  { img: Sample, group: "個人組", name: "大安區金冬天", member: "", ig: "lm__winter" },
+  { img: Sample, group: "個人組", name: "六個字的呈現", member: "", ig: "lm__winter" },
   { img: Sample, group: "個人組", name: "寧小卓", member: "", ig: "imnotningning" },
   { img: Sample, group: "個人組", name: "五個字狀況", member: "", ig: "lm__winter" },
-  { img: Sample, group: "個人組", name: "六個字的呈現", member: "", ig: "imnotningning" },
-  { img: Sample, group: "團體組", name: "三重MISAMO", member: "MINA/SANA/MOMO", ig: "twicetagram" },
+  { img: Sample, group: "個人組", name: "名字特別長會長這樣", member: "", ig: "imnotningning" },
+  {
+    img: Sample,
+    group: "團體組",
+    name: "七個字會長這樣",
+    member: "MINA/SANA/MOMO",
+    ig: "twicetagram",
+  },
   {
     img: Sample,
     group: "團體組",
@@ -107,7 +113,6 @@ const Arrow = styled.div`
 const Marquee = styled.div`
   overflow: hidden;
   position: relative;
-  height: 16px;
   & div {
     display: flex;
     gap: 8px;
@@ -174,13 +179,24 @@ export default function Card() {
                           {info.group}
                         </div>
                         <div className="text-brown-300 font-medium text-12 mt-4">NAME</div>
-                        <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold border-b border-brown-300">
-                          {info.name}
-                        </div>
+                        {info.name.replace(/[^\x00-\xff]/g, "xx").length < 13 ? (
+                          <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold border-b border-brown-300">
+                            {info.name}
+                          </div>
+                        ) : (
+                          <Marquee className="h-[22px] text-nowrap overflow-hidden text-brown-800 font-bold text-16 border-b border-brown-300">
+                            <div>
+                              <span>{info.name}</span>
+                              <span>{info.name}</span>
+                            </div>
+                          </Marquee>
+                        )}
                       </div>
                     </div>
                     <div className="text-nowrap text-brown-800 text-12 font-bold mt-5 ms-7">
-                      @{info.ig}
+                      <a href={`https://www.instagram.com/${info.ig}`} target="_blank">
+                        @{info.ig}
+                      </a>
                     </div>
                   </CardBG>
                 </SwiperSlide>
@@ -231,22 +247,37 @@ export default function Card() {
                           {info.group}
                         </div>
                         <div className="text-brown-300 font-medium text-12 mt-3">NAME</div>
-                        <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold">
-                          {info.name}
-                        </div>
-                        <div className="text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
-                          {info.member}
-                        </div>
-                        {/* <Marquee className="text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
-                          <div>
-                            <span>{info.member}</span>
-                            <span>{info.member}</span>
+                        {info.name.replace(/[^\x00-\xff]/g, "xx").length < 13 ? (
+                          <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold">
+                            {info.name}
                           </div>
-                        </Marquee> */}
+                        ) : (
+                          <Marquee className="h-[22px] text-nowrap overflow-hidden text-brown-800 font-bold text-16">
+                            <div>
+                              <span>{info.name}</span>
+                              <span>{info.name}</span>
+                            </div>
+                          </Marquee>
+                        )}
+
+                        {info.name.replace(/[^\x00-\xff]/g, "xx").length < 13 ? (
+                          <div className="text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
+                            {info.member}
+                          </div>
+                        ) : (
+                          <Marquee className="h-[15.3px] text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
+                            <div>
+                              <span>{info.member}</span>
+                              <span>{info.member}</span>
+                            </div>
+                          </Marquee>
+                        )}
                       </div>
                     </div>
-                    <div className="text-nowrap text-brown-800 text-12 font-bold mt-5 ms-7">
-                      @{info.ig}
+                    <div className="text-nowrap text-brown-800 text-12 font-bold mt-4 ms-7">
+                      <a href={`https://www.instagram.com/${info.ig}`} target="_blank">
+                        @{info.ig}
+                      </a>
                     </div>
                   </CardBG>
                 </SwiperSlide>
