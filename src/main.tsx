@@ -8,11 +8,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "/miseenscene_aespa/",
+    path: "/",
     element: <App />,
   },
   {
-    path: "/miseenscene_aespa/sign-up",
+    path: "/sign-up",
     element: <App signUp />,
   },
 ]);

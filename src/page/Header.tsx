@@ -68,7 +68,7 @@ export default function Header(props: {
       >
         <div className="flex justify-between items-center w-full max-w-screen-xl m-auto">
           <Link
-            to="/miseenscene_aespa"
+            to="/"
             className="cursor-pointer"
             onClick={() => {
               window.scrollTo({
@@ -81,7 +81,7 @@ export default function Header(props: {
           </Link>
           <Nav className="hidden lg:flex items-center justify-center text-white text-22 tracking-widest font-bold text-nowrap">
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref1);
@@ -90,7 +90,7 @@ export default function Header(props: {
               活動簡介
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref2);
@@ -99,7 +99,7 @@ export default function Header(props: {
               品牌介紹
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref3);
@@ -108,7 +108,7 @@ export default function Header(props: {
               比賽辦法
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref4);
@@ -117,7 +117,7 @@ export default function Header(props: {
               參賽隊伍
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref5);
@@ -125,7 +125,7 @@ export default function Header(props: {
             >
               官方社群
             </Link>
-            <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
+            <Link to="/sign-up" className="cursor-pointer">
               <img
                 className="object-contain w-full max-w-[138px] min-w-28"
                 src={SignUp}
@@ -144,7 +144,7 @@ export default function Header(props: {
         </div>
       </header>
       {!menuShow && !props.signUp && <div className={`lg:hidden fixed z-20 right-4 bottom-8`}>
-        <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
+        <Link to="/sign-up" className="cursor-pointer">
           <img className="object-contain max-w-24" src={SignUpM} alt="我要報名" />
         </Link>
       </div>}
@@ -159,7 +159,7 @@ export default function Header(props: {
             }}
           >
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer pb-1 border-orange-100 border-b-2"
               onClick={() => {
                 handleLinkOnClick(props.ref1);
@@ -168,7 +168,7 @@ export default function Header(props: {
               活動簡介
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer pb-1 border-orange-100 border-b-2"
               onClick={() => {
                 handleLinkOnClick(props.ref2);
@@ -177,7 +177,7 @@ export default function Header(props: {
               品牌介紹
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer pb-1 border-orange-100 border-b-2"
               onClick={() => {
                 handleLinkOnClick(props.ref3);
@@ -186,7 +186,7 @@ export default function Header(props: {
               比賽辦法
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer pb-1 border-orange-100 border-b-2"
               onClick={() => {
                 handleLinkOnClick(props.ref4);
@@ -195,7 +195,7 @@ export default function Header(props: {
               參賽隊伍
             </Link>
             <Link
-              to="/miseenscene_aespa"
+              to="/"
               className="cursor-pointer pb-1 border-orange-100 border-b-2"
               onClick={() => {
                 handleLinkOnClick(props.ref5);
@@ -208,7 +208,7 @@ export default function Header(props: {
                 <img className="object-contain w-[30px]" src={IgLogo} />
               </Link>
             </div>
-            <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
+            <Link to="/sign-up" className="cursor-pointer">
               <img className="object-contain w-[100px] min-w-28" src={SignUp} alt="我要報名" />
             </Link>
           </nav>

@@ -57,7 +57,6 @@ export default function App(props: { signUp?: boolean }) {
               <img
                 src={S18}
                 className="hidden md:block absolute w-[38%] max-w-[454px] top-[-70px] left-[40vw]"
-                // style={{ top: "clamp(0px,28.1vw,360px)" }}
               />
             </div>
             <Footer />
