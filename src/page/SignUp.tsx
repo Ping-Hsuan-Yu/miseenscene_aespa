@@ -21,6 +21,7 @@ import InputField from "../components/InputField";
 import Label from "../components/Label";
 import LabelCaption from "../components/LabelCaption";
 import LabelInputText from "../components/LabelInputText";
+import Loading from "../components/Loading";
 
 const PaperBg = styled.div`
   background-image: url(${Paper});
@@ -40,6 +41,10 @@ const Submit = styled.button`
   padding: 4px 36px;
   border-radius: 8px;
   box-shadow: 2px 2px 1px 0.5px #db4f02;
+  &:disabled {
+    background-color: #f2a3547e;
+    box-shadow: 2px 2px 1px 0.5px #db4e027e;
+  }
 `;
 
 const Radio = styled.input`
@@ -69,6 +74,8 @@ const Radio = styled.input`
     transform: scale(1);
   }
 `;
+
+
 
 type DateValuePiece = Date | null;
 type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece];
@@ -104,7 +111,9 @@ export default function SignUp() {
   const [file, setFile] = useState<File | null>(null);
   const [uploadImgUrl, setUploadImgUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState(initialInputValue);
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
+  const [onLoading, setOnLoading] = useState<boolean>(false);
   const ref = useRef<HTMLElement>(null);
 
   const handleInitial = () => {
@@ -120,10 +129,7 @@ export default function SignUp() {
     setOnSubmit(false);
   };
 
-  const handleSubmit = useCallback(() => {
-    setOnSubmit(true);
-    const apiLink =
-      "https://script.google.com/macros/s/AKfycbwOoEqUD9k7rUY0ekZNC2qkyz7-cxsTdyYW4kc0C6aU6Ygp2M10Wnvjq9xQJE_Q08Q8ag/exec";
+  useEffect(() => {
     const excludedKeys = ["tiktok", "teamMember"];
     const isValid = Object.values(inputValue).every((value, index) => {
       const key = Object.keys(inputValue)[index];
@@ -133,6 +139,13 @@ export default function SignUp() {
         return true;
       }
     });
+    setIsValid(isValid);
+  }, [inputValue]);
+
+  const handleSubmit = useCallback(() => {
+    setOnSubmit(true);
+    const apiLink =
+      "https://script.google.com/macros/s/AKfycbwOoEqUD9k7rUY0ekZNC2qkyz7-cxsTdyYW4kc0C6aU6Ygp2M10Wnvjq9xQJE_Q08Q8ag/exec";
 
     if (isValid && file !== null) {
       const timeStamp = new Date().toLocaleString();
@@ -166,9 +179,14 @@ export default function SignUp() {
           }
         })
         .catch((err) => console.log(err))
-        .finally(handleInitial);
+        .finally(() => {
+          setOnLoading(false);
+          // handleInitial();
+        });
+    } else {
+      setOnLoading(false);
     }
-  }, [inputValue, file, uploadImgUrl]);
+  }, [inputValue, isValid, file, uploadImgUrl]);
 
   const getOtherValue = (name: string) => {
     const checkbox = document.getElementById(name) as HTMLInputElement;
@@ -570,6 +588,7 @@ export default function SignUp() {
               <InputField>
                 <input
                   type="file"
+                  accept="image/*"
                   onChange={handleFileChange}
                   className="w-full text-23px text-orange-600 font-bold bg-orange-100 outline-none"
                 />
@@ -922,13 +941,25 @@ export default function SignUp() {
               </InputField>
             </div>
             <div className="flex justify-between items-center mb-8">
-              <Submit
-                type="button"
-                className=" text-white text-36 font-bold tracking-widest"
-                onClick={handleSubmit}
-              >
-                提交
-              </Submit>
+              <div className="text-center">
+                <Submit
+                  type="button"
+                  disabled={(onSubmit && !isValid) || onLoading}
+                  className=" text-white text-36 font-bold tracking-widest"
+                  onClick={() => {
+                    setOnLoading(true);
+                    handleSubmit();
+                  }}
+                >
+                  提交
+                </Submit>
+                {onSubmit && !isValid && (
+                  <div className="text-red text-20 font-bold invalid mb-[-12px]">
+                    請填寫必填問題
+                  </div>
+                )}
+                {onLoading && <Loading/>}
+              </div>
               <div
                 onClick={handleInitial}
                 className="text-orange-600 text-29 tracking-wider font-bold"

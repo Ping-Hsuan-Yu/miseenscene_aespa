@@ -10,12 +10,12 @@ import styled from "styled-components";
 const Title = (props: { text: string }) => (
   <div className="relative">
     <div className="flex">
-      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
-      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
-      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
-      <div className="bg-orange-600 w-9 h-9 md:w-10 md:h-10 text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-[36px] h-[36px] md:w-[40px] md:h-[40px] text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-[36px] h-[36px] md:w-[40px] md:h-[40px] text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-[36px] h-[36px] md:w-[40px] md:h-[40px] text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
+      <div className="bg-orange-600 w-[36px] h-[36px] md:w-[40px] md:h-[40px] text-center rounded-full mx-[-2.5px] md:mx-[-4px]"></div>
     </div>
-    <span className="text-2xl md:text-[25px] text-white font-black absolute top-0 md:top-0.5 left-1 tracking-[7px]">
+    <span className="text-2xl md:text-[25px] text-white font-black absolute top-0 md:top-[2px] left-[4px] tracking-[7px]">
       {props.text}
     </span>
   </div>

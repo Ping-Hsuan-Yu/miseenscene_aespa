@@ -668,6 +668,10 @@ video {
   top: 60vw;
 }
 
+.left-\[4px\]{
+  left: 4px;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -808,8 +812,12 @@ video {
   height: 100px;
 }
 
-.h-\[24px\]{
-  height: 24px;
+.h-\[15\.3px\]{
+  height: 15.3px;
+}
+
+.h-\[22px\]{
+  height: 22px;
 }
 
 .h-auto{
@@ -820,24 +828,8 @@ video {
   height: 100%;
 }
 
-.h-\[16px\]{
-  height: 16px;
-}
-
-.h-\[22px\]{
-  height: 22px;
-}
-
-.h-\[14px\]{
-  height: 14px;
-}
-
-.h-\[15px\]{
-  height: 15px;
-}
-
-.h-\[15\.3px\]{
-  height: 15.3px;
+.h-\[36px\]{
+  height: 36px;
 }
 
 .max-h-\[\]{
@@ -948,6 +940,10 @@ video {
   width: 100%;
 }
 
+.w-\[36px\]{
+  width: 36px;
+}
+
 .min-w-28{
   min-width: 7rem;
 }
@@ -960,12 +956,8 @@ video {
   min-width: 128px;
 }
 
-.min-w-24{
-  min-width: 6rem;
-}
-
-.min-w-20{
-  min-width: 5rem;
+.max-w-24{
+  max-width: 6rem;
 }
 
 .max-w-8{
@@ -1084,14 +1076,6 @@ video {
   max-width: 1280px;
 }
 
-.max-w-20{
-  max-width: 5rem;
-}
-
-.max-w-24{
-  max-width: 6rem;
-}
-
 .rotate-\[2deg\]{
   --tw-rotate: 2deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1155,14 +1139,6 @@ video {
 
 .overflow-hidden{
   overflow: hidden;
-}
-
-.overflow-scroll{
-  overflow: scroll;
-}
-
-.overflow-y-scroll{
-  overflow-y: scroll;
 }
 
 .text-nowrap{
@@ -1520,6 +1496,10 @@ video {
     top: 100%;
   }
 
+  .md\:top-\[2px\]{
+    top: 2px;
+  }
+
   .md\:m-6{
     margin: 1.5rem;
   }
@@ -1546,12 +1526,20 @@ video {
     height: 2.5rem;
   }
 
+  .md\:h-\[40px\]{
+    height: 40px;
+  }
+
   .md\:w-10{
     width: 2.5rem;
   }
 
   .md\:w-\[17\.5\%\]{
     width: 17.5%;
+  }
+
+  .md\:w-\[40px\]{
+    width: 40px;
   }
 
   .md\:max-w-\[210px\]{
