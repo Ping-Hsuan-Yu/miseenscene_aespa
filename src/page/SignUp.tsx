@@ -181,9 +181,10 @@ export default function SignUp() {
         .catch((err) => console.log(err))
         .finally(() => {
           setOnLoading(false);
-          // handleInitial();
+          handleInitial();
         });
     } else {
+      window.scrollTo({top:0,behavior:"smooth"})
       setOnLoading(false);
     }
   }, [inputValue, isValid, file, uploadImgUrl]);
@@ -365,6 +366,7 @@ export default function SignUp() {
               required
               value={inputValue.userName}
               onChange={handleInputOnChange}
+              autoComplete="name"
             >
               <LabelCaption>*若有資料不完整/有誤/重複報名等情事，將自動視同放棄</LabelCaption>
               {onSubmit && inputValue.userName === "" && (
@@ -484,6 +486,8 @@ export default function SignUp() {
               required
               value={inputValue.phone}
               onChange={handleInputOnChange}
+              autoComplete="tel"
+              inputmode="tel"
             >
               {onSubmit && inputValue.phone === "" && (
                 <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
@@ -495,6 +499,8 @@ export default function SignUp() {
               required
               value={inputValue.email}
               onChange={handleInputOnChange}
+              autoComplete="email"
+              inputmode="email"
             >
               <LabelCaption>
                 *作為後續聯繫使用，若有資料不完整/有誤導致無法聯繫的情況，將自動視同放棄
@@ -601,6 +607,7 @@ export default function SignUp() {
               required
               value={inputValue.people}
               onChange={handleInputOnChange}
+              inputmode="numeric"
             >
               <LabelCaption>*請填寫阿拉伯數字，若報名個人組請填1</LabelCaption>
               {onSubmit && inputValue.people === "" && (
@@ -962,7 +969,7 @@ export default function SignUp() {
               </div>
               <div
                 onClick={handleInitial}
-                className="text-orange-600 text-29 tracking-wider font-bold"
+                className="text-orange-600 text-29 tracking-wider font-bold cursor-pointer"
               >
                 清除表單
               </div>

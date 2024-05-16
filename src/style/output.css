@@ -1089,6 +1089,10 @@ video {
   cursor: pointer;
 }
 
+.cursor-crosshair{
+  cursor: crosshair;
+}
+
 .list-decimal{
   list-style-type: decimal;
 }
