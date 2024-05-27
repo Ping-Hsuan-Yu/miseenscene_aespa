@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";
 import Paper from "../assets/paper.png";
-import S02 from "../assets/s02.png";
+// import S02 from "../assets/s02.png";
 import S03 from "../assets/s03.png";
 import S04 from "../assets/s04.png";
 import S05 from "../assets/s05.png";
@@ -287,10 +287,10 @@ export default function SignUp() {
     <>
       <section className="w-full px-2 pt-6 md:px-20 md:pt-24 ref" ref={ref}>
         <div className="relative w-full">
-          <img
+          {/* <img
             src={S02}
             className="hidden md:block absolute w-[42.1%] max-w-[472px] top-[-80px] right-[-5%]"
-          />
+          /> */}
           <img
             src={S03}
             className="hidden md:block absolute w-[7.67%] max-w-[86px] left-[-5%]"
@@ -777,7 +777,7 @@ export default function SignUp() {
                       handleCheckBoxOnChange(e, setWhy);
                     }}
                     state={why}
-                    value="本身是aespa的粉絲"
+                    value="本身是新代言人的粉絲"
                   />
                   <div className="flex items-center gap-2">
                     <div>

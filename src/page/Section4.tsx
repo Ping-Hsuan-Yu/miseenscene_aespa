@@ -3,8 +3,9 @@ import dance from "../assets/img03-1_02.png";
 import paper from "../assets/img03-1_03.png";
 import timelineImg from "../assets/img03-2.png";
 import timelineImgM from "../assets/img03-2-m.png";
-import Gif1 from "../assets/05062.gif";
-import Gif2 from "../assets/0508_Horizontal_All_16X9_KR_NT.gif";
+import Video from "../assets/0523.mov";
+// import Gif1 from "../assets/05062.gif";
+// import Gif2 from "../assets/0508_Horizontal_All_16X9_KR_NT.gif";
 import styled from "styled-components";
 
 const Title = (props: { text: string }) => (
@@ -93,7 +94,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             <Title text="活動方式" />
             <ol className="mt-2.5 list-decimal ps-6">
               <li>
-                Cover 魅尚萱全新代言人aespa之舞蹈，並使用 #魅尚萱小橘瓶 完美修護護髮精油，結合指定創意內容拍攝影片（請詳閱各參賽組別之評分規則）。
+                Cover Kpop舞蹈，並使用 #魅尚萱小橘瓶 完美修護護髮精油，結合指定創意內容拍攝影片（請詳閱各參賽組別之評分規則）。
               </li>
               <li>影片請上傳至公開之Instagram帳號，並於報名時一同提供連結。</li>
               <li>影片長度以30秒至2分鐘為限。</li>
@@ -120,11 +121,11 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             </div>
             <div className="mt-1 ">
               影片中<span className="text-orange-600">使用 #魅尚萱小橘瓶 完美修護護髮精油</span>
-              擦拭髮尾，呈現秀髮柔順光澤的形象(以撥髮、甩髮方式呈現，可參考代言人形象影片內容)，並說出或以字幕呈現：「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
+              擦拭髮尾，呈現秀髮柔順光澤的形象(以撥髮、甩髮方式呈現，可參考<a className="text-orange-600 underline" href="https://www.instagram.com/p/C6_QQ4TttPF/" target="_blank">代言人形象影片內容</a>)，並說出或以字幕呈現：「完美終結稻草髮，用小橘瓶和魅尚萱一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
-            <div className="flex justify-center my-8">
+            {/* <div className="flex justify-center my-8">
               <img className="w-[574px]" src={Gif1}/>
-            </div>
+            </div> */}
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
                 貼文文案中須帶到「完美終結稻草髮，7種植萃精油24H完美修護」及簡易的產品使用心得：+10分
@@ -134,7 +135,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
                 <br />
                 <span className="text-orange-600">
                   #魅尚萱 #kpop舞蹈大賽 #我的頭髮會跳舞 #魅尚萱護髮精油 #魅尚萱小橘瓶
-                  #完美終結稻草髮 #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
+                  #完美終結稻草髮 #7種植萃精油24H完美修護 #完美修護護髮精油
                 </span> 並在文中 @miseenscenetw
               </li>
               <li>
@@ -156,11 +157,12 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             </div>
             <div className="mt-1 ">
               舞蹈中結合使用<span className="text-orange-600"> #魅尚萱小橘瓶 完美修護護髮精油</span>
-              的創意內容發展，呈現秀髮柔順光澤的形象為主(以撥髮、甩髮或其他創意形式呈現，亦可參考代言人官方影片內容)，影片中需說出或以字幕呈現
-              「完美終結稻草髮，用小橘瓶和aespa一起成為〝頭〞號完美女生！」指定文字內容。
+              的創意內容發展，呈現秀髮柔順光澤的形象為主(以撥髮、甩髮或其他創意形式呈現，亦可參考<a className="text-orange-600 underline" href="https://www.instagram.com/p/C6_QQ4TttPF/" target="_blank">代言人形象影片內容</a>)，影片中需說出或以字幕呈現
+              「完美終結稻草髮，用小橘瓶和魅尚萱一起成為〝頭〞號完美女生！」指定文字內容。
             </div>
             <div className="flex justify-center my-8">
-              <img className="w-[574px] " src={Gif2}/>
+            <video className="w-[574px] h-full" controls muted playsInline autoPlay src={Video}/>
+              {/* <img className="w-[574px] " src={Gif2}/> */}
             </div>
             <ol className="mt-2.5 list-decimal ps-6" start={3}>
               <li>
@@ -171,7 +173,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
                 <br />
                 <span className="text-orange-600">
                   #魅尚萱 #kpop舞蹈大賽 #我的頭髮會跳舞 #魅尚萱護髮精油 #魅尚萱小橘瓶
-                  #完美終結稻草髮 #7種植萃精油24H完美修護 #aespa #aespa代言 #完美修護護髮精油
+                  #完美終結稻草髮 #7種植萃精油24H完美修護 #完美修護護髮精油
                 </span> 並在文中 @miseenscenetw
               </li>
               <li>

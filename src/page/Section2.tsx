@@ -4,7 +4,8 @@ import Sec02Img2m from "../assets/img01-2-m.png";
 import Sec02Img3 from "../assets/img01-3.png";
 import Sec02Img4 from "../assets/img01-4.png";
 import Sec02Img4m from "../assets/img01-4-m.png";
-import Video from "../assets/0424_16x9_all_15s.mp4";
+import Sec02Img6 from "../assets/img01-6.png";
+// import Video from "../assets/0424_16x9_all_15s.mp4";
 import OrangeGridBg from "../components/OrangeGridBg";
 
 export default function Section2() {
@@ -31,11 +32,11 @@ export default function Section2() {
               src={Sec02Img3}
             />
             <img
-              className="object-contain hidden lg:block absolute Sec02Img4 lg:top-[656px] "
+              className="object-contain hidden lg:block absolute Sec02Img4 lg:top-[590px] "
               src={Sec02Img4}
             />
             <img
-              className="object-contain lg:hidden absolute Sec02Img4 top-[60vw]"
+              className="object-contain lg:hidden absolute Sec02Img4 top-[70vw]"
               src={Sec02Img4m}
             />
          
@@ -46,9 +47,15 @@ export default function Section2() {
             <span className="text-brown-950 text-50">24H</span>
             <span className="text-white text-40">完美修護</span>
           </div>
-          <div className="Sec02Video w-full max-w-[960px] h-auto z-10">
-            <video className="w-full h-full" loop controls muted playsInline autoPlay src={Video}/>
+          <div className="mt-10 mb-20 w-full max-w-[642px] z-10">
+          <img
+              className="object-contain"
+              src={Sec02Img6}
+            />
           </div>
+          {/* <div className="Sec02Video w-full max-w-[960px] h-auto z-10">
+            <video className="w-full h-full" loop controls muted playsInline autoPlay src={Video}/>
+          </div> */}
         </div>
       </OrangeGridBg>
     </section>

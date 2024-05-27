@@ -8,44 +8,12 @@ import { FreeMode } from "swiper/modules";
 
 const cardInfo = [
   { img: Sample, group: "個人組", name: "小喵", member: "", ig: "_ri__na____" },
-  { img: Sample, group: "個人組", name: "六個字的呈現", member: "", ig: "lm__winter" },
-  { img: Sample, group: "個人組", name: "寧小卓", member: "", ig: "imnotningning" },
-  { img: Sample, group: "個人組", name: "五個字狀況", member: "", ig: "lm__winter" },
-  { img: Sample, group: "個人組", name: "名字特別長會長這樣", member: "", ig: "imnotningning" },
-  {
-    img: Sample,
-    group: "團體組",
-    name: "七個字會長這樣",
-    member: "MINA/SANA/MOMO",
-    ig: "twicetagram",
-  },
   {
     img: Sample,
     group: "團體組",
     name: "松高勁舞團",
     member: "甜甜/小美/K/莉莉",
     ig: "aespa_official",
-  },
-  {
-    img: Sample,
-    group: "團體組",
-    name: "94愛跳舞",
-    member: "MINA/SANA/MOMO",
-    ig: "blackpinkofficial",
-  },
-  {
-    img: Sample,
-    group: "團體組",
-    name: "三重MISAMO",
-    member: "甜甜/小美/K/莉莉/甜甜/小美/K/莉莉",
-    ig: "aespa_official",
-  },
-  {
-    img: Sample,
-    group: "團體組",
-    name: "三重MISAMO",
-    member: "MINA/SANA/MOMO",
-    ig: "blackpinkofficial",
   },
 ];
 

@@ -2,7 +2,7 @@ import Sec03Img1 from "../assets/img02-1.png";
 import Sec03Img1m from "../assets/img02-1-m.png";
 import Sec03Img2 from "../assets/img02-2.png";
 import Sec03Img2m from "../assets/img02-2-m.png";
-import Gif from "../assets/0506_Horizontal_7x9.gif";
+// import Gif from "../assets/0506_Horizontal_7x9.gif";
 
 export default function Section3(props: {
   ref1: React.MutableRefObject<HTMLElement | null>;
@@ -15,11 +15,11 @@ export default function Section3(props: {
         ref={props.ref1}
       >
         <div className="relative">
-          <img
+          {/* <img
             className="absolute object-contain md:max-w-[210px] z-[15] md:w-[17.5%] w-[70.5%] md:left-[2.16%] left-[14.9%] md:bottom-[7.9%] bottom-[23.26%] md:rotate-[-4.5deg] rotate-[2deg]"
             src={Gif}
             alt=""
-          />
+          /> */}
           <img
             className="hidden md:block object-contain w-full max-w-[1194px] z-10"
             src={Sec03Img1}
