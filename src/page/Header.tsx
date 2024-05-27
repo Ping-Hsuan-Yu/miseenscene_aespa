@@ -4,8 +4,8 @@ import styled from "styled-components";
 import IgLogo from "../assets/instagram-white-icon.svg";
 import Logo from "../assets/logo.png";
 import MenuIcon from "../assets/menu.png";
-// import SignUp from "../assets/signup.png";
-// import SignUpM from "../assets/signup-m.png";
+import SignUp from "../assets/signup.png";
+import SignUpM from "../assets/signup-m.png";
 
 const Nav = styled.nav`
   & a:not(:last-of-type)::after {
@@ -125,13 +125,13 @@ export default function Header(props: {
             >
               官方社群
             </Link>
-            {/* <Link to="/sign-up" className="cursor-pointer">
+            <Link to="/sign-up" className="cursor-pointer">
               <img
                 className="object-contain w-full max-w-[138px] min-w-28"
                 src={SignUp}
                 alt="我要報名"
               />
-            </Link> */}
+            </Link>
             <div className="cursor-pointer mx-6">
               <Link to="https://www.instagram.com/miseenscenetw/" target="_blank">
                 <img className="object-contain w-full max-w-[45px] min-w-7" src={IgLogo} />
@@ -143,11 +143,11 @@ export default function Header(props: {
           </div>
         </div>
       </header>
-      {/* {!menuShow && !props.signUp && <div className={`lg:hidden fixed z-20 right-4 bottom-8`}>
+      {!menuShow && !props.signUp && <div className={`lg:hidden fixed z-20 right-4 bottom-8`}>
         <Link to="/sign-up" className="cursor-pointer">
           <img className="object-contain max-w-24" src={SignUpM} alt="我要報名" />
         </Link>
-      </div>} */}
+      </div>}
       <div
         className={`lg:hidden fixed z-20 transition-all ${menuShow ? "right-0" : "right-[-170px]"}`}
       >
@@ -208,9 +208,9 @@ export default function Header(props: {
                 <img className="object-contain w-[30px]" src={IgLogo} />
               </Link>
             </div>
-            {/* <Link to="/sign-up" className="cursor-pointer">
+            <Link to="/sign-up" className="cursor-pointer">
               <img className="object-contain w-[100px] min-w-28" src={SignUp} alt="我要報名" />
-            </Link> */}
+            </Link>
           </nav>
         </div>
       </div>
