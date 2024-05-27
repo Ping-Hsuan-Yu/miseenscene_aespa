@@ -664,14 +664,6 @@ video {
   top: 60%;
 }
 
-.top-\[60vw\]{
-  top: 60vw;
-}
-
-.top-\[50vw\]{
-  top: 50vw;
-}
-
 .top-\[70vw\]{
   top: 70vw;
 }
@@ -736,6 +728,10 @@ video {
   margin-bottom: 2rem;
 }
 
+.mb-20{
+  margin-bottom: 5rem;
+}
+
 .mb-8{
   margin-bottom: 2rem;
 }
@@ -790,10 +786,6 @@ video {
 
 .mt-\[45px\]{
   margin-top: 45px;
-}
-
-.mb-20{
-  margin-bottom: 5rem;
 }
 
 .block{
@@ -1032,6 +1024,10 @@ video {
   max-width: 472px;
 }
 
+.max-w-\[642px\]{
+  max-width: 642px;
+}
+
 .max-w-\[663px\]{
   max-width: 663px;
 }
@@ -1074,10 +1070,6 @@ video {
 
 .max-w-screen-xl{
   max-width: 1280px;
-}
-
-.max-w-\[642px\]{
-  max-width: 642px;
 }
 
 .rotate-\[2deg\]{
@@ -1597,42 +1589,6 @@ video {
 }
 
 @media (min-width: 1024px){
-  .lg\:top-\[656px\]{
-    top: 656px;
-  }
-
-  .lg\:top-\[600px\]{
-    top: 600px;
-  }
-
-  .lg\:top-\[540px\]{
-    top: 540px;
-  }
-
-  .lg\:top-\[550px\]{
-    top: 550px;
-  }
-
-  .lg\:top-\[555px\]{
-    top: 555px;
-  }
-
-  .lg\:top-\[570px\]{
-    top: 570px;
-  }
-
-  .lg\:top-\[560px\]{
-    top: 560px;
-  }
-
-  .lg\:top-\[580px\]{
-    top: 580px;
-  }
-
-  .lg\:top-\[585px\]{
-    top: 585px;
-  }
-
   .lg\:top-\[590px\]{
     top: 590px;
   }
@@ -1670,23 +1626,9 @@ video {
 }
 
 @media (min-width: 1280px){
-  .xl\:p-0{
-    padding: 0px;
-  }
-
   .xl\:py-5{
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
-  }
-
-  .xl\:py-1{
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-  }
-
-  .xl\:py-2{
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
   }
 
   .xl\:pe-16{
