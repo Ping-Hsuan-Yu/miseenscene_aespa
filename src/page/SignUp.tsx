@@ -75,8 +75,6 @@ const Radio = styled.input`
   }
 `;
 
-
-
 type DateValuePiece = Date | null;
 type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece];
 
@@ -184,7 +182,7 @@ export default function SignUp() {
           handleInitial();
         });
     } else {
-      window.scrollTo({top:0,behavior:"smooth"})
+      window.scrollTo({ top: 0, behavior: "smooth" });
       setOnLoading(false);
     }
   }, [inputValue, isValid, file, uploadImgUrl]);
@@ -369,7 +367,9 @@ export default function SignUp() {
               autoComplete="name"
             >
               <LabelCaption>*若有資料不完整/有誤/重複報名等情事，將自動視同放棄</LabelCaption>
-              <LabelCaption>*參加團體組僅需一位負責人(隊長)代表填寫報名即可</LabelCaption>
+              <div className="text-brown-950 text-20 font-bold tracking-wide text-pretty">
+                *參加團體組僅需一位負責人(隊長)代表填寫報名即可
+              </div>
               {onSubmit && inputValue.userName === "" && (
                 <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
               )}
@@ -966,7 +966,7 @@ export default function SignUp() {
                     請填寫必填問題
                   </div>
                 )}
-                {onLoading && <Loading/>}
+                {onLoading && <Loading />}
               </div>
               <div
                 onClick={handleInitial}

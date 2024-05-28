@@ -106,7 +106,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
           <div>
             <Title text="評分規則" />
             <ol className="mt-2.5 list-decimal ps-6">
-              <li>以Instagram貼文之愛心數加個項目加權分為最終分數。</li>
+              <li>以Instagram貼文之愛心數加各項目加權分為最終分數。</li>
               <li>依照最終分數加總評選出個人組與團體組前3名並隨機抽出特別獎各3名。</li>
             </ol>
             <div className="mt-6 text-white text-lg md:text-[22px]">
