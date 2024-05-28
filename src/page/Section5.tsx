@@ -3,7 +3,7 @@ import Sec05Img1m from "../assets/img05-1-m.png";
 import Sec05Img2 from "../assets/img05-2.png";
 import Sec05Img3 from "../assets/img05-3.png";
 import Sec05Img4 from "../assets/img05-4.png";
-// import Card from "../components/Card";
+import Card from "../components/Card";
 import OrangeGridBg from "../components/OrangeGridBg";
 
 export default function Section5(props: {
@@ -24,7 +24,7 @@ export default function Section5(props: {
             src={Sec05Img1}
             alt="參賽隊伍"
           />
-          {/* <Card /> */}
+          <Card />
           <footer className="ref" ref={props.ref5}>
             <div className="mt-[20px] relative flex justify-center">
               <img className="object-contain w-full max-w-[985px]" src={Sec05Img2} alt="" />

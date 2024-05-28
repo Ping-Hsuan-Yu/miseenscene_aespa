@@ -369,6 +369,7 @@ export default function SignUp() {
               autoComplete="name"
             >
               <LabelCaption>*若有資料不完整/有誤/重複報名等情事，將自動視同放棄</LabelCaption>
+              <LabelCaption>*參加團體組僅需一位負責人(隊長)代表填寫報名即可</LabelCaption>
               {onSubmit && inputValue.userName === "" && (
                 <div className="text-red text-20 font-bold invalid mb-[-12px]">請填寫必填問題</div>
               )}
