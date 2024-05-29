@@ -4,23 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
-
-const cardInfo = [
-  {
-    img: "https://drive.google.com/thumbnail?id=1aXTEqs5xDzXMu4nHR4d9xaIgBXadrXYz",
-    group: "個人組",
-    name: "蘆洲Hanni",
-    member: "",
-    ig: "looper_7250",
-  },
-  {
-    img: "https://drive.google.com/thumbnail?id=1iIiX3sNurzvJnRCoSDnbob3PoeUczJqJ",
-    group: "團體組",
-    name: "Quadruple L",
-    member: "李琪/陳采伶/李翊瑄/梁欣樺",
-    ig: "chi.lee.2002",
-  },
-];
+import { useEffect, useState } from "react";
 
 const CardBG = styled.div`
   background-image: url(${CardBg});
@@ -111,7 +95,22 @@ const Marquee = styled.div`
   }
 `;
 
+const url =
+  "https://script.google.com/macros/s/AKfycbwOoEqUD9k7rUY0ekZNC2qkyz7-cxsTdyYW4kc0C6aU6Ygp2M10Wnvjq9xQJE_Q08Q8ag/exec";
+
 export default function Card() {
+  const [cardInfo, setCardInfo] = useState<
+    { img: string; group: string; name: string; member: string; ig: string }[]
+  >([]);
+  const getCardInfo = () => {
+    fetch(url)
+      .then(async (response) => {
+        setCardInfo(await response.json());
+      })
+      .catch((err) => console.error(err));
+  };
+  useEffect(getCardInfo, []);
+
   return (
     <div className="flex flex-col gap-5 md:gap-10 my-5 md:my-10">
       <Container className="relative">
@@ -144,7 +143,11 @@ export default function Card() {
                   <CardBG>
                     <div className="flex mt-[45px] mx-[14px]">
                       <div className="object-contain w-[100px] h-[100px] bg-orange-100">
-                        <img src={info.img} alt={`${info.name}-${info.ig}`} />
+                        <img
+                          className="w-[100px] h-[100px] object-cover"
+                          src={info.img}
+                          alt={`${info.name}-${info.ig}`}
+                        />
                       </div>
                       <div className="text-center ms-3 w-[110px]">
                         <div className="text-brown-300 font-medium text-12">GROUP</div>
@@ -175,14 +178,48 @@ export default function Card() {
                 </SwiperSlide>
               )
           )}
-           {cardInfo.map(
+        </Swiper>
+        <div className="absolute right-4 md:bottom-[-24px] md:top-full top-1/2 z-[15]">
+          <Arrow className="prev" />
+          <Arrow className="next" />
+        </div>
+      </Container>
+      <Container className="relative">
+        <Swiper
+          breakpoints={{
+            640: {
+              width: 640,
+              slidesPerView: 1,
+            },
+            768: {
+              width: 768,
+              slidesPerView: 3,
+            },
+            1024: {
+              width: 1024,
+              slidesPerView: 4,
+            },
+            1280: {
+              width: 1280,
+              slidesPerView: 4.5,
+            },
+          }}
+          freeMode={true}
+          spaceBetween={16}
+          modules={[FreeMode]}
+        >
+          {cardInfo.map(
             (info) =>
               info.group === "團體組" && (
                 <SwiperSlide key={info.ig} className="flex justify-center">
                   <CardBG>
                     <div className="flex mt-[45px] mx-[14px]">
-                      <div className="object-contain w-[100px] h-[100px] bg-orange-100">
-                        <img src={info.img} alt={`${info.name}-${info.ig}`} />
+                      <div className="w-[100px] h-[100px] bg-orange-100">
+                        <img
+                          className="w-[100px] h-[100px] object-cover"
+                          src={info.img}
+                          alt={`${info.name}-${info.ig}`}
+                        />
                       </div>
                       <div className="text-center ms-3 w-[110px]">
                         <div className="text-brown-300 font-medium text-12">GROUP</div>
@@ -232,87 +269,6 @@ export default function Card() {
           <Arrow className="next" />
         </div>
       </Container>
-      {/* <Container className="relative">
-        <Swiper
-          breakpoints={{
-            640: {
-              width: 640,
-              slidesPerView: 1,
-            },
-            768: {
-              width: 768,
-              slidesPerView: 3,
-            },
-            1024: {
-              width: 1024,
-              slidesPerView: 4,
-            },
-            1280: {
-              width: 1280,
-              slidesPerView: 4.5,
-            },
-          }}
-          freeMode={true}
-          spaceBetween={16}
-          modules={[FreeMode]}
-        >
-          {cardInfo.map(
-            (info) =>
-              info.group === "團體組" && (
-                <SwiperSlide key={info.ig} className="flex justify-center">
-                  <CardBG>
-                    <div className="flex mt-[45px] mx-[14px]">
-                      <div className="object-contain w-[100px] h-[100px] bg-orange-100">
-                        <img src={info.img} alt={`${info.name}-${info.ig}`} />
-                      </div>
-                      <div className="text-center ms-3 w-[110px]">
-                        <div className="text-brown-300 font-medium text-12">GROUP</div>
-                        <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold border-b border-brown-300">
-                          {info.group}
-                        </div>
-                        <div className="text-brown-300 font-medium text-12 mt-3">NAME</div>
-                        {info.name.replace(/[^\x00-\xff]/g, "xx").length < 13 ? (
-                          <div className="text-nowrap overflow-hidden text-brown-800 text-16 font-bold">
-                            {info.name}
-                          </div>
-                        ) : (
-                          <Marquee className="h-[22px] text-nowrap overflow-hidden text-brown-800 font-bold text-16">
-                            <div>
-                              <span>{info.name}</span>
-                              <span>{info.name}</span>
-                            </div>
-                          </Marquee>
-                        )}
-
-                        {info.member.replace(/[^\x00-\xff]/g, "xx").length < 13 ? (
-                          <div className="text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
-                            {info.member}
-                          </div>
-                        ) : (
-                          <Marquee className="h-[15.3px] text-nowrap overflow-hidden text-brown-800 font-bold text-12 border-b border-brown-300">
-                            <div>
-                              <span>{info.member}</span>
-                              <span>{info.member}</span>
-                            </div>
-                          </Marquee>
-                        )}
-                      </div>
-                    </div>
-                    <div className="text-nowrap text-brown-800 text-12 font-bold mt-4 ms-7">
-                      <a href={`https://www.instagram.com/${info.ig}`} target="_blank">
-                        @{info.ig}
-                      </a>
-                    </div>
-                  </CardBG>
-                </SwiperSlide>
-              )
-          )}
-        </Swiper>
-        <div className="absolute right-4 md:bottom-[-24px] md:top-full top-1/2 z-[15]">
-          <Arrow className="prev" />
-          <Arrow className="next" />
-        </div>
-      </Container> */}
     </div>
   );
 }
