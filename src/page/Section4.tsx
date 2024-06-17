@@ -85,8 +85,8 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             <Title text="報名方式" />
             <ol className="mt-2.5 list-decimal ps-6">
               <li>網路報名制，確實填寫報名資料。</li>
-              <li>報名時間：2024/5/20-2024/6/20 23:59。</li>
-              <li>影片上傳期限：2024/7/15 23:59止。</li>
+              <li>報名時間：2024/5/27-2024/6/27 23:59。</li>
+              <li>影片上傳期限：2024/7/21 23:59止。</li>
               <li>未於以上期限上傳影片至Instagram者不具有參賽資格。</li>
             </ol>
           </div>
