@@ -952,14 +952,15 @@ export default function SignUp() {
               <div className="text-center">
                 <Submit
                   type="button"
-                  disabled={(onSubmit && !isValid) || onLoading}
+                  // disabled={(onSubmit && !isValid) || onLoading}
                   className=" text-white text-36 font-bold tracking-widest"
                   onClick={() => {
                     setOnLoading(true);
                     handleSubmit();
                   }}
+                  disabled
                 >
-                  提交
+                  報名已截止
                 </Submit>
                 {onSubmit && !isValid && (
                   <div className="text-red text-20 font-bold invalid mb-[-12px]">

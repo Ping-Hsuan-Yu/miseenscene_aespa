@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import CardBg from "../assets/card.png";
+import FirstPlace from "../assets/1.png";
+import SecondPlace from "../assets/2.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -100,12 +102,13 @@ const url =
 
 export default function Card() {
   const [cardInfo, setCardInfo] = useState<
-    { img: string; group: string; name: string; member: string; ig: string }[]
+    { img: string; group: string; name: string; member: string; ig: string; score: string }[]
   >([]);
   const getCardInfo = () => {
     fetch(url)
       .then(async (response) => {
         setCardInfo(await response.json());
+        console.log(response);
       })
       .catch((err) => console.error(err));
   };
@@ -137,10 +140,28 @@ export default function Card() {
           modules={[FreeMode]}
         >
           {cardInfo.map(
-            (info) =>
+            (info, idx) =>
               info.group === "個人組" && (
-                <SwiperSlide key={info.ig} className="flex justify-center">
+                <SwiperSlide key={`${info.ig}${idx}`} className="flex justify-center">
                   <CardBG>
+                  {idx === 0 && (
+                      <div className="relative">
+                        <img
+                          className="absolute w-[60px] h-[60px] object-cover top-1 left-2"
+                          src={FirstPlace}
+                          alt=""
+                        />
+                      </div>
+                    )}
+                    {idx === 1 && (
+                      <div className="relative">
+                        <img
+                          className="absolute w-[60px] h-[60px] object-cover top-1 left-2"
+                          src={SecondPlace}
+                          alt=""
+                        />
+                      </div>
+                    )}
                     <div className="flex mt-[45px] mx-[14px]">
                       <div className="object-contain w-[100px] h-[100px] bg-orange-100">
                         <img
@@ -169,10 +190,24 @@ export default function Card() {
                         )}
                       </div>
                     </div>
-                    <div className="text-nowrap text-brown-800 text-12 font-bold mt-5 ms-7">
-                      <a href={`https://www.instagram.com/${info.ig}`} target="_blank">
+                    <div
+                      className={`text-nowrap text-brown-800 font-bold ms-7 me-5 flex justify-between items-baseline ${
+                        info.score ? "mt-2" : "mt-5"
+                      }`}
+                    >
+                      <a
+                        href={`https://www.instagram.com/${info.ig}`}
+                        target="_blank"
+                        className="text-12"
+                      >
                         @{info.ig}
                       </a>
+                      {info.score && (
+                        <span className="text-22">
+                          {info.score}
+                          <span className="text-12 ms-1">分</span>
+                        </span>
+                      )}
                     </div>
                   </CardBG>
                 </SwiperSlide>
@@ -209,10 +244,28 @@ export default function Card() {
           modules={[FreeMode]}
         >
           {cardInfo.map(
-            (info) =>
+            (info, idx) =>
               info.group === "團體組" && (
-                <SwiperSlide key={info.ig} className="flex justify-center">
+                <SwiperSlide key={`${info.ig}${idx}`} className="flex justify-center">
                   <CardBG>
+                    {idx === 52 && (
+                      <div className="relative w-full">
+                        <img
+                          className="absolute w-[60px] h-[60px] object-cover top-1 left-2"
+                          src={FirstPlace}
+                          alt=""
+                        />
+                      </div>
+                    )}
+                    {idx === 53 && (
+                      <div className="relative">
+                        <img
+                          className="absolute w-[60px] h-[60px] object-cover top-1 left-2"
+                          src={SecondPlace}
+                          alt=""
+                        />
+                      </div>
+                    )}
                     <div className="flex mt-[45px] mx-[14px]">
                       <div className="w-[100px] h-[100px] bg-orange-100">
                         <img
@@ -254,10 +307,24 @@ export default function Card() {
                         )}
                       </div>
                     </div>
-                    <div className="text-nowrap text-brown-800 text-12 font-bold mt-4 ms-7">
-                      <a href={`https://www.instagram.com/${info.ig}`} target="_blank">
+                    <div
+                      className={`text-nowrap text-brown-800 font-bold ms-7 me-5 flex justify-between items-baseline ${
+                        info.score ? "mt-1" : "mt-4"
+                      }`}
+                    >
+                      <a
+                        href={`https://www.instagram.com/${info.ig}`}
+                        target="_blank"
+                        className="text-12"
+                      >
                         @{info.ig}
                       </a>
+                      {info.score && (
+                        <span className="text-22">
+                          {info.score}
+                          <span className="text-12 ms-1">分</span>
+                        </span>
+                      )}
                     </div>
                   </CardBG>
                 </SwiperSlide>

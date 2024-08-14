@@ -21,6 +21,15 @@ export default {
       },
       red: "#e60400",
     },
+    fontSize: {
+      lg: [
+        "1.125rem",
+        {
+          lineHeight: "1.5rem",
+          fontWeight: "500",
+        },
+      ],
+    },
   },
   plugins: [],
 };

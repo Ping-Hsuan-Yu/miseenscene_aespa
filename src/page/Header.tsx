@@ -208,9 +208,9 @@ export default function Header(props: {
                 <img className="object-contain w-[30px]" src={IgLogo} />
               </Link>
             </div>
-            <Link to="/sign-up" className="cursor-pointer">
+            {/* <Link to="/sign-up" className="cursor-pointer">
               <img className="object-contain w-[100px] min-w-28" src={SignUp} alt="我要報名" />
-            </Link>
+            </Link> */}
           </nav>
         </div>
       </div>

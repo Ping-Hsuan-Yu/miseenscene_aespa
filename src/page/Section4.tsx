@@ -114,7 +114,7 @@ export default function Section4(props: { ref3: React.MutableRefObject<HTMLEleme
             </div>
             <ol className="mt-1 list-decimal ps-6">
               <li>影片中使用完美修護護髮精油及完成指定創意內容：+50分</li>
-              <li>完成個人組指定項目內容：+30分（產品須清楚展示，若無則判定資格不符）</li>
+              <li>完成指定項目內容：+30分（Cover Kpop舞蹈，並使用 #魅尚萱小橘瓶 完美修護護髮精油，產品須清楚展示，若無則判定資格不符）</li>
             </ol>
             <div className="mt-6 text-white text-lg md:text-[22px]">
               <span className="bg-brown-950 rounded-md px-2">-個人組指定創意內容-</span>
