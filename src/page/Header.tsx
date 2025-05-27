@@ -81,7 +81,7 @@ export default function Header(props: {
           </Link>
           <Nav className="hidden lg:flex items-center justify-center text-white text-22 tracking-widest font-bold text-nowrap">
             <Link
-              to="/"
+              to="/miseenscene_aespa/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref1);
@@ -90,7 +90,7 @@ export default function Header(props: {
               活動簡介
             </Link>
             <Link
-              to="/"
+              to="/miseenscene_aespa/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref2);
@@ -99,7 +99,7 @@ export default function Header(props: {
               品牌介紹
             </Link>
             <Link
-              to="/"
+              to="/miseenscene_aespa/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref3);
@@ -108,7 +108,7 @@ export default function Header(props: {
               比賽辦法
             </Link>
             <Link
-              to="/"
+              to="/miseenscene_aespa/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref4);
@@ -117,7 +117,7 @@ export default function Header(props: {
               參賽隊伍
             </Link>
             <Link
-              to="/"
+              to="/miseenscene_aespa/"
               className="cursor-pointer"
               onClick={() => {
                 handleLinkOnClick(props.ref5);
@@ -125,7 +125,7 @@ export default function Header(props: {
             >
               官方社群
             </Link>
-            <Link to="/sign-up" className="cursor-pointer">
+            <Link to="/miseenscene_aespa/sign-up" className="cursor-pointer">
               <img
                 className="object-contain w-full max-w-[138px] min-w-28"
                 src={SignUp}

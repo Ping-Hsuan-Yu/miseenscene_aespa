@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://ping-hsuan-yu.github.io/miseenscene_aespa/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
